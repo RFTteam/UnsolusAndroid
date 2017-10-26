@@ -13,29 +13,24 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class RegisterActivity extends AppCompatActivity {
+
     private static final String TAG = "RegisterActivity";
-  //  @InjectView(R.id.input_name) EditText _name;
-    private Button createAccount = (Button) findViewById(R.id.btn_signup);
-    private TextView backToLogin = (TextView) findViewById(R.id.link_login);
-    private EditText _name = (EditText) findViewById(R.id.input_name);
-    private EditText _email = (EditText) findViewById(R.id.input_email);
-    private EditText _password = (EditText) findViewById(R.id.input_password);
-    private EditText _passwordConfirm = (EditText) findViewById(R.id.input_password_confirm);
-    private EditText _age = (EditText) findViewById(R.id.input_age);
-    private EditText _country = (EditText) findViewById(R.id.input_country);
-    private EditText _language = (EditText) findViewById(R.id.input_language);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-       // ButterKnife.inject(this);
+
+        Button createAccount = (Button) findViewById(R.id.btn_signup);
+        TextView backToLogin = (TextView) findViewById(R.id.link_login);
+
         createAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
             //    signUp();
             }
         });
+
 
         backToLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,13 +46,21 @@ public class RegisterActivity extends AppCompatActivity {
             onSignupFailed();
             return;
         }
-
+        Button createAccount = (Button) findViewById(R.id.btn_signup);
         createAccount.setEnabled(false);
 
         final ProgressDialog progressDialog = new ProgressDialog(RegisterActivity.this, R.style.AppTheme);
             progressDialog.setIndeterminate(true);
             progressDialog.setMessage("Creating Account...");
             progressDialog.show();
+
+        EditText _name = (EditText) findViewById(R.id.input_name);
+        EditText _email = (EditText) findViewById(R.id.input_email);
+        EditText _password = (EditText) findViewById(R.id.input_password);
+        EditText _passwordConfirm = (EditText) findViewById(R.id.input_password_confirm);
+        EditText _age = (EditText) findViewById(R.id.input_age);
+        EditText _country = (EditText) findViewById(R.id.input_country);
+        EditText _language = (EditText) findViewById(R.id.input_language);
 
         String name = _name.getText().toString();
         String email = _email.getText().toString();
@@ -83,18 +86,27 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void onSignupSuccess() {
+        Button createAccount = (Button) findViewById(R.id.btn_signup);
         createAccount.setEnabled(true);
         setResult(RESULT_OK, null);
         finish();
     }
 
     private void onSignupFailed() {
+        Button createAccount = (Button) findViewById(R.id.btn_signup);
         Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
         createAccount.setEnabled(true);
     }
 
     private boolean validate() {
         boolean valid = true;
+        EditText _name = (EditText) findViewById(R.id.input_name);
+        EditText _email = (EditText) findViewById(R.id.input_email);
+        EditText _password = (EditText) findViewById(R.id.input_password);
+        EditText _passwordConfirm = (EditText) findViewById(R.id.input_password_confirm);
+        EditText _age = (EditText) findViewById(R.id.input_age);
+        EditText _country = (EditText) findViewById(R.id.input_country);
+        EditText _language = (EditText) findViewById(R.id.input_language);
 
         String name = _name.getText().toString();
         String email = _email.getText().toString();
