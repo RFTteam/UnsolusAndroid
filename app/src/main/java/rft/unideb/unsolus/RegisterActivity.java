@@ -1,7 +1,6 @@
 package rft.unideb.unsolus;
 
 import android.app.ProgressDialog;
-import android.support.annotation.IdRes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -27,10 +26,9 @@ public class RegisterActivity extends AppCompatActivity {
         createAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            //    signUp();
+                signUp();
             }
         });
-
 
         backToLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,8 +44,6 @@ public class RegisterActivity extends AppCompatActivity {
             onSignupFailed();
             return;
         }
-        Button createAccount = (Button) findViewById(R.id.btn_signup);
-        createAccount.setEnabled(false);
 
         final ProgressDialog progressDialog = new ProgressDialog(RegisterActivity.this, R.style.AppTheme);
             progressDialog.setIndeterminate(true);
@@ -57,15 +53,13 @@ public class RegisterActivity extends AppCompatActivity {
         EditText _name = (EditText) findViewById(R.id.input_name);
         EditText _email = (EditText) findViewById(R.id.input_email);
         EditText _password = (EditText) findViewById(R.id.input_password);
-        EditText _passwordConfirm = (EditText) findViewById(R.id.input_password_confirm);
-        EditText _age = (EditText) findViewById(R.id.input_age);
+        EditText _age = (EditText) findViewById(R.id.input_birthday);
         EditText _country = (EditText) findViewById(R.id.input_country);
         EditText _language = (EditText) findViewById(R.id.input_language);
 
         String name = _name.getText().toString();
         String email = _email.getText().toString();
         String password = _password.getText().toString();
-        String confirmPassword = _passwordConfirm.getText().toString();
         String age = _age.getText().toString();
         String country = _country.getText().toString();
         String language = _language.getText().toString();
@@ -86,16 +80,12 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void onSignupSuccess() {
-        Button createAccount = (Button) findViewById(R.id.btn_signup);
-        createAccount.setEnabled(true);
         setResult(RESULT_OK, null);
         finish();
     }
 
     private void onSignupFailed() {
-        Button createAccount = (Button) findViewById(R.id.btn_signup);
-        Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
-        createAccount.setEnabled(true);
+        Toast.makeText(getBaseContext(), "Failed", Toast.LENGTH_LONG).show();
     }
 
     private boolean validate() {
@@ -103,21 +93,19 @@ public class RegisterActivity extends AppCompatActivity {
         EditText _name = (EditText) findViewById(R.id.input_name);
         EditText _email = (EditText) findViewById(R.id.input_email);
         EditText _password = (EditText) findViewById(R.id.input_password);
-        EditText _passwordConfirm = (EditText) findViewById(R.id.input_password_confirm);
-        EditText _age = (EditText) findViewById(R.id.input_age);
+        EditText _age = (EditText) findViewById(R.id.input_birthday);
         EditText _country = (EditText) findViewById(R.id.input_country);
         EditText _language = (EditText) findViewById(R.id.input_language);
 
         String name = _name.getText().toString();
         String email = _email.getText().toString();
         String password = _password.getText().toString();
-        String confirmPassword = _passwordConfirm.getText().toString();
         String age = _age.getText().toString();
         String country = _country.getText().toString();
         String language = _language.getText().toString();
 
-        if (name.isEmpty() || name.length() < 3){
-            _name.setError("at least 3 character");
+        if (name.isEmpty() || name.length() < 3 || name.length() > 15){
+            _name.setError("between 3 & 15 character");
             valid = false;
         }else{
             _name.setError(null);
@@ -130,18 +118,11 @@ public class RegisterActivity extends AppCompatActivity {
             _email.setError(null);
         }
 
-        if (password.isEmpty() || password.length() < 6 || password.length() > 12){
-            _password.setError("between 6 & 12 character");
+        if (password.isEmpty() || password.length() < 6){
+            _password.setError("at least 6 character");
             valid = false;
         }else{
             _password.setError(null);
-        }
-
-        if (confirmPassword.isEmpty() || confirmPassword.length() < 6 || confirmPassword.length() > 12 || !confirmPassword.equals(password)){
-            _passwordConfirm.setError("wrong password or length");
-            valid = false;
-        }else{
-            _passwordConfirm.setError(null);
         }
 
         if (age.isEmpty() || age.length() != 2){
