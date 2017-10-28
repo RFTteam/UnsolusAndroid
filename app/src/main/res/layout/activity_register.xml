@@ -90,7 +90,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Birthday"
-                    android:inputType="datetime" />
+                    android:inputType="date" />
             </android.support.design.widget.TextInputLayout>
 
             <!-- Country -->
@@ -101,11 +101,20 @@
                 android:layout_marginBottom="8dp"
                 android:background="@android:color/holo_orange_light">
 
-                <EditText
+                <TextView
+                    android:id="@+id/select_country"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:clickable="false"
+                    android:text="Choose your Country" />
+
+                <Spinner
                     android:id="@+id/input_country"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textFilter"
+                    android:entries="@array/country_arrays"
                     android:hint="Country"/>
             </android.support.design.widget.TextInputLayout>
 
@@ -117,11 +126,20 @@
                 android:layout_marginBottom="8dp"
                 android:background="@android:color/holo_orange_light">
 
-                <EditText
+                <TextView
+                    android:id="@+id/select_langauge"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:clickable="false"
+                    android:text="Choose your Language" />
+
+                <Spinner
                     android:id="@+id/input_language"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Language"
+                    android:entries="@array/language_arrays"
                     android:inputType="textCapWords" />
             </android.support.design.widget.TextInputLayout>
 
