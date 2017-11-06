@@ -51,11 +51,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     /**
      * A dummy authentication store containing known user names and passwords.
-     * TODO: remove after connecting to a real authentication system.
      */
+
     private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "bar@example.com:world", "foo@example.com:a", "dummy@error.com"
+            "bar@example.com:eleglesz", "foo@example.com:a", "dummy@error.com"
     };
+
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
@@ -170,8 +171,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * errors are presented and no actual login attempt is made.
      */
     private void attemptLogin() {
-        canILogin = true;
         Log.d(TAG, "Login");
+
+        canILogin = true;
+
+        String securityEmail;
+        String securityPassword;
 
         if (mAuthTask != null) {
             return;
@@ -190,8 +195,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         // Check for a valid password, if the user entered one.
         if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
-            mPasswordView.setError(getString(R.string.error_invalid_password));
             canILogin = false;
+            mPasswordView.setError(getString(R.string.error_invalid_password));
             focusView = mPasswordView;
             cancel = true;
         }
@@ -221,6 +226,18 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mAuthTask.execute((Void) null);
         }
 
+        for (String credential : DUMMY_CREDENTIALS) {
+            String[] pieces = credential.split(":");
+            if (pieces[0].equals(email)) {
+                // Account exists, return true if the password matches.
+                if (!pieces[1].equals(password))
+                    canILogin = false;
+            } else {
+                canILogin = false;
+                mEmailView.setError("This email address is invalid");
+            }
+        }
+
     }
 
     private boolean isEmailValid(String email) {
@@ -228,7 +245,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     private boolean isPasswordValid(String password) {
-        return password.length() < 6;
+        return password.length() > 6;
     }
 
     /**
@@ -354,7 +371,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 }
             }
 
-            // TODO: register the new account here.
             return true;
         }
 
@@ -366,6 +382,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             if (success) {
                 finish();
             } else {
+                canILogin = false;
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();
             }
