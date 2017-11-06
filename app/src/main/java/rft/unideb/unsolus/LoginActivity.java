@@ -54,7 +54,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      */
 
     private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "bar@example.com:eleglesz", "foo@example.com:a", "dummy@error.com"
+            "bar@test.com:eleglesz", "foo@test.com:a", "dummy@error.com"
     };
 
     /**
@@ -175,9 +175,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         canILogin = true;
 
-        String securityEmail;
-        String securityPassword;
-
         if (mAuthTask != null) {
             return;
         }
@@ -192,6 +189,19 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         boolean cancel = false;
         View focusView = null;
+
+        for (String credential : DUMMY_CREDENTIALS) {
+            String[] pieces = credential.split(":");
+            if (pieces[0].equals(email)) {
+                if (pieces[1].equals(password)){
+                    canILogin = true;
+                    break;
+                }
+                else canILogin = false;
+            } else {
+                canILogin = false;
+            }
+        }
 
         // Check for a valid password, if the user entered one.
         if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
@@ -224,18 +234,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(true);
             mAuthTask = new UserLoginTask(email, password);
             mAuthTask.execute((Void) null);
-        }
-
-        for (String credential : DUMMY_CREDENTIALS) {
-            String[] pieces = credential.split(":");
-            if (pieces[0].equals(email)) {
-                // Account exists, return true if the password matches.
-                if (!pieces[1].equals(password))
-                    canILogin = false;
-            } else {
-                canILogin = false;
-                mEmailView.setError("This email address is invalid");
-            }
         }
 
     }
@@ -382,7 +380,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             if (success) {
                 finish();
             } else {
-                canILogin = false;
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();
             }
