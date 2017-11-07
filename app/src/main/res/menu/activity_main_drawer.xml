@@ -4,17 +4,22 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home_black_24dp"
+            android:title="@string/nav_home"/>
+        <item
             android:id="@+id/nav_games"
-            android:icon="@drawable/games"
-            android:title="Games" />
+            android:icon="@drawable/ic_videogame_asset_black_24dp"
+            android:title="@string/nav_games"/>
         <item
             android:id="@+id/nav_players"
-            android:icon="@drawable/player"
-            android:title="Players" />
+            android:icon="@drawable/ic_account_circle_black_24dp"
+            android:title="@string/nav_players"/>
         <item
             android:id="@+id/nav_teams"
-            android:icon="@drawable/teams"
-            android:title="Teams" />
+            android:icon="@drawable/ic_group_black_24dp"
+            android:title="@string/nav_teams"/>
+
     </group>
 
     <item android:title="Account">
@@ -22,11 +27,11 @@
             <item
                 android:id="@+id/nav_account_settings"
                 android:icon="@drawable/ic_menu_manage"
-                android:title="Account Settings" />
+                android:title="@string/nav_account_settings" />
             <item
                 android:id="@+id/nav_logout"
-                android:icon="@drawable/logout"
-                android:title="Logout" />
+                android:icon="@drawable/ic_exit_to_app_black_24dp"
+                android:title="@string/nav_logout" />
         </menu>
     </item>
 
