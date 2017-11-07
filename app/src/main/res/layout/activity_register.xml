@@ -28,61 +28,54 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_weight="0.22" />
 
+            <!--  Email Label -->
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@android:color/holo_orange_light">
+
+                <EditText
+                    android:id="@+id/input_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Name"
+                    android:inputType="textCapWords" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@android:color/holo_orange_light">
+
+                <EditText
+                    android:id="@+id/input_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Email"
+                    android:inputType="textEmailAddress" />
+            </android.support.design.widget.TextInputLayout>
+
+            <!--  PW Label -->
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@android:color/holo_orange_light">
+
+                <EditText
+                    android:id="@+id/input_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Password"
+                    android:inputType="textPassword" />
+            </android.support.design.widget.TextInputLayout>
+
             <!--  Name Label -->
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:background="@android:color/holo_orange_light">
-                <EditText android:id="@+id/input_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textCapWords"
-                    android:hint="Name" />
-            </android.support.design.widget.TextInputLayout>
-
-            <!-- Email Label -->
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:background="@android:color/holo_orange_light">
-                <EditText android:id="@+id/input_email"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textEmailAddress"
-                    android:hint="Email" />
-            </android.support.design.widget.TextInputLayout>
-
-            <!-- Password Label -->
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:background="@android:color/holo_orange_light">
-                <EditText android:id="@+id/input_password"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPassword"
-                    android:hint="Password"/>
-            </android.support.design.widget.TextInputLayout>
-
-            <!-- Confirm Password Label -->
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:background="@android:color/holo_orange_light">
-                <EditText android:id="@+id/input_password_confirm"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPassword"
-                    android:hint="Confirm Password"/>
-            </android.support.design.widget.TextInputLayout>
 
             <!-- Age -->
             <android.support.design.widget.TextInputLayout
@@ -93,11 +86,11 @@
                 android:background="@android:color/holo_orange_light">
 
                 <EditText
-                    android:id="@+id/input_age"
+                    android:id="@+id/input_birthday"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textCapWords"
-                    android:hint="Age"/>
+                    android:hint="Birthday"
+                    android:inputType="date" />
             </android.support.design.widget.TextInputLayout>
 
             <!-- Country -->
@@ -108,11 +101,20 @@
                 android:layout_marginBottom="8dp"
                 android:background="@android:color/holo_orange_light">
 
-                <EditText
+                <TextView
+                    android:id="@+id/select_country"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:clickable="false"
+                    android:text="Choose your Country" />
+
+                <Spinner
                     android:id="@+id/input_country"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textCapWords"
+                    android:inputType="textFilter"
+                    android:entries="@array/country_arrays"
                     android:hint="Country"/>
             </android.support.design.widget.TextInputLayout>
 
@@ -124,12 +126,21 @@
                 android:layout_marginBottom="8dp"
                 android:background="@android:color/holo_orange_light">
 
-                <EditText
-                    android:id="@+id/language"
+                <TextView
+                    android:id="@+id/select_langauge"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textCapWords"
-                    android:hint="Language"/>
+                    android:layout_weight="1"
+                    android:clickable="false"
+                    android:text="Choose your Language" />
+
+                <Spinner
+                    android:id="@+id/input_language"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Language"
+                    android:entries="@array/language_arrays"
+                    android:inputType="textCapWords" />
             </android.support.design.widget.TextInputLayout>
 
             <!-- Signup Button -->
@@ -140,7 +151,7 @@
                 android:layout_marginTop="24dp"
                 android:layout_marginBottom="24dp"
                 android:padding="12dp"
-                android:text="Create Account"
+                android:text="@string/create_account"
                 android:background="@android:color/holo_orange_dark"/>
 
             <TextView android:id="@+id/link_login"
