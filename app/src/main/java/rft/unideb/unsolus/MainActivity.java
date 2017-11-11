@@ -15,7 +15,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,7 +24,6 @@ import rft.unideb.unsolus.fragments.PlayersFragment;
 import rft.unideb.unsolus.fragments.TeamsFragment;
 
 public class MainActivity extends AppCompatActivity {
-  //      implements NavigationView.OnNavigationItemSelectedListener {
 
     private NavigationView navigationView;
     private DrawerLayout drawer;
@@ -41,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG_Players = "players";
     private static final String TAG_Teams = "teams";
     private static final String TAG_Settings = "settings";
+    private static final String TAG_about = "about";
     public static String CURRENT_TAG = TAG_Home;
 
     private String[] activityTitles;
@@ -61,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Contact Support /Coming Soon.../", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Nothing important... yet...", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
@@ -73,14 +72,15 @@ public class MainActivity extends AppCompatActivity {
         toggle.syncState();
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
-      //  navigationView.setNavigationItemSelectedListener(this);
 
         activityTitles = getResources().getStringArray(R.array.nav_item_activity_titles);
+
+        txtName = (TextView) navHeader.findViewById(R.id.userName);
+        txtEmail = (TextView) navHeader.findViewById(R.id.userEmail);
 
         loadNavHeader();
 
         setUpNavigationView();
-
 
         if (savedInstanceState == null){
             navItemIndex = 0;
@@ -90,11 +90,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loadNavHeader() {
+        txtName.setText("User name");
+        txtEmail.setText("User email");
     }
 
     private void loadHomeFragment() {
+
         selectNavMenu();
         setToolbarTitle();
+
         if (getSupportFragmentManager().findFragmentByTag(CURRENT_TAG) != null){
             drawer.closeDrawers();
 
@@ -262,9 +266,7 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_about) {
-            return true;
-        }
+
         if (id == R.id.action_logout){
             Toast.makeText(getApplicationContext(), "Logout user!", Toast.LENGTH_LONG).show();
             return true;
@@ -272,29 +274,4 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-    /*
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_home) {
-            // Handle the camera action
-        } else if (id == R.id.nav_games) {
-
-        } else if (id == R.id.nav_players) {
-
-        } else if (id == R.id.nav_teams) {
-
-        } else if (id == R.id.nav_account_settings) {
-
-        } else if (id == R.id.nav_logout) {
-
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }*/
 }

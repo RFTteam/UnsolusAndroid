@@ -37,7 +37,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.Manifest.permission.READ_CONTACTS;
-
+//TODO:
+// - KEEP ME SIGNED IN BUTTON
+// - FORGOT YOUR PASSWORD? LINK
 /**
  * A login screen that offers login via email/password.
  */
@@ -95,7 +97,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             @Override
             public void onClick(View view) {
                 attemptLogin();
-                if(canILogin)
+              //  if(canILogin)
                     changeToMainActivity(view);
             }
         });
