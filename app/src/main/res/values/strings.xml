@@ -12,7 +12,11 @@
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_invalid_mail_pw">This email or password incorrect</string>
+    <string name="forgot_password">Forgot your password?</string>
     <string name="error_field_required">This field is required</string>
+    <string name="already_member_login">Already a member? Login</string>
+    <string name="remember">Remember Me</string>
 
     <!-- It will be useful later.. i guess -->
     <string name="permission_rationale">"Contacts permissions are needed for providing email

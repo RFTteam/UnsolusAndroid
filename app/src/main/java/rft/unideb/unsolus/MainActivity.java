@@ -1,5 +1,6 @@
 package rft.unideb.unsolus;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
@@ -17,7 +18,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import rft.unideb.unsolus.fragments.GamesFragment;
 import rft.unideb.unsolus.fragments.HomeFragment;
 import rft.unideb.unsolus.fragments.PlayersFragment;
@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private NavigationView navigationView;
     private DrawerLayout drawer;
     private View navHeader;
-    private TextView txtName, txtEmail; //later for user name and email
+    private TextView txtName, txtEmail;
     private Toolbar toolbar;
     private FloatingActionButton fab;
 
@@ -38,8 +38,6 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG_Games = "games";
     private static final String TAG_Players = "players";
     private static final String TAG_Teams = "teams";
-    private static final String TAG_Settings = "settings";
-    private static final String TAG_about = "about";
     public static String CURRENT_TAG = TAG_Home;
 
     private String[] activityTitles;
@@ -60,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Nothing important... yet...", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Just a flying button.. yet..", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
@@ -73,10 +71,10 @@ public class MainActivity extends AppCompatActivity {
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
 
-        activityTitles = getResources().getStringArray(R.array.nav_item_activity_titles);
+     //   txtName = (TextView) navHeader.findViewById(R.id.userName);
+     //   txtEmail = (TextView) navHeader.findViewById(R.id.userEmail);
 
-        txtName = (TextView) navHeader.findViewById(R.id.userName);
-        txtEmail = (TextView) navHeader.findViewById(R.id.userEmail);
+        activityTitles = getResources().getStringArray(R.array.nav_item_activity_titles);
 
         loadNavHeader();
 
@@ -90,15 +88,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loadNavHeader() {
-        txtName.setText("User name");
-        txtEmail.setText("User email");
+      // txtName.setText("User name");
+      // txtEmail.setText("User email");
     }
 
     private void loadHomeFragment() {
-
         selectNavMenu();
         setToolbarTitle();
-
         if (getSupportFragmentManager().findFragmentByTag(CURRENT_TAG) != null){
             drawer.closeDrawers();
 
@@ -189,6 +185,14 @@ public class MainActivity extends AppCompatActivity {
                         navItemIndex=3;
                         CURRENT_TAG=TAG_Teams;
                         break;
+                    case R.id.nav_about_us:
+                        startActivity(new Intent(MainActivity.this, AboutUsActivity.class));
+                        drawer.closeDrawers();
+                        return true;
+                    case R.id.nav_account_settings:
+                        startActivity(new Intent(MainActivity.this, AccountSettings.class));
+                        drawer.closeDrawers();
+                        return true;
                     default:
                         navItemIndex=0;
                 }
@@ -244,7 +248,7 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
         }
-            super.onBackPressed();
+        super.onBackPressed();
     }
 
     @Override
@@ -264,8 +268,6 @@ public class MainActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
 
         if (id == R.id.action_logout){
             Toast.makeText(getApplicationContext(), "Logout user!", Toast.LENGTH_LONG).show();

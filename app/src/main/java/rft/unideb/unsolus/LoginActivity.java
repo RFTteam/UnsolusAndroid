@@ -33,6 +33,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -99,6 +101,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 attemptLogin();
               //  if(canILogin)
                     changeToMainActivity(view);
+            }
+        });
+
+        TextView forgotPW = (TextView) findViewById(R.id.forgot_PW);
+        forgotPW.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this, Forgot_password_activity.class));
             }
         });
 
@@ -220,7 +230,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             focusView = mEmailView;
             cancel = true;
         } else if (!isEmailValid(email)) {
-            mEmailView.setError(getString(R.string.error_invalid_email));
+            mEmailView.setError(getString(R.string.error_invalid_mail_pw));
             canILogin = false;
             focusView = mEmailView;
             cancel = true;
@@ -382,7 +392,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             if (success) {
                 finish();
             } else {
-                mPasswordView.setError(getString(R.string.error_incorrect_password));
+                mEmailView.setError(getString(R.string.error_invalid_mail_pw));
                 mPasswordView.requestFocus();
             }
         }

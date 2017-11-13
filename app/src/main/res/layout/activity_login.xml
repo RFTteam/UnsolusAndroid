@@ -36,8 +36,8 @@
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="160dp"
-                android:layout_height="160dp"
+                android:layout_width="140dp"
+                android:layout_height="140dp"
                 android:layout_gravity="center"
                 android:src="@drawable/logo" />
 
@@ -80,6 +80,14 @@
 
             </android.support.design.widget.TextInputLayout>
 
+            <CheckBox
+                android:id="@+id/remember_me"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/remember"
+                android:buttonTint="@android:color/white"
+                android:textColor="@android:color/white"/>
+
             <Button
                 android:id="@+id/email_sign_in_button"
                 style="?android:textAppearanceSmall"
@@ -90,6 +98,16 @@
                 android:text="@string/action_sign_in"
                 android:textStyle="bold"
                 android:layout_gravity="center"/>
+
+            <TextView
+                android:id="@+id/forgot_PW"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:textSize="16dip"
+                android:textColor="@android:color/white"
+                android:text="@string/forgot_password" />
 
             <Button
                 android:id="@+id/register_button"
