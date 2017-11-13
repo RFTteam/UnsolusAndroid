@@ -41,7 +41,7 @@ import java.util.List;
 import static android.Manifest.permission.READ_CONTACTS;
 //TODO:
 // - KEEP ME SIGNED IN BUTTON
-// - FORGOT YOUR PASSWORD? LINK
+//connect with backend
 /**
  * A login screen that offers login via email/password.
  */
@@ -78,7 +78,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        // Set up the login form.
+
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
 
