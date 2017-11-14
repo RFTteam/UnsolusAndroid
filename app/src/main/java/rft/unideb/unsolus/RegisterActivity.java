@@ -95,11 +95,13 @@ public class RegisterActivity extends AppCompatActivity {
         EditText _name = (EditText) findViewById(R.id.input_name);
         EditText _email = (EditText) findViewById(R.id.input_email);
         EditText _password = (EditText) findViewById(R.id.input_password);
+        EditText _password_confirm = (EditText) findViewById(R.id.input_passwordConfirm);
         EditText _age = (EditText) findViewById(R.id.input_birthday);
 
         String name = _name.getText().toString();
         String email = _email.getText().toString();
         String password = _password.getText().toString();
+        String pwConf = _password_confirm.getText().toString();
         String age = _age.getText().toString();
 
         if (name.isEmpty() || name.length() < 3 || name.length() > 15){
@@ -121,6 +123,13 @@ public class RegisterActivity extends AppCompatActivity {
             valid = false;
         }else{
             _password.setError(null);
+        }
+
+        if (pwConf.isEmpty() || !pwConf.equals(password)){
+            _password_confirm.setError("the 2 password doesnt equals");
+            valid = false;
+        }else{
+            _password_confirm.setError(null);
         }
 
         if (age.isEmpty()){

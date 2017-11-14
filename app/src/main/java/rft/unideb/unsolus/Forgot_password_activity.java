@@ -35,12 +35,13 @@ public class Forgot_password_activity extends AppCompatActivity {
         //search in database
         String EMAIL = mEmail.getText().toString();
 
-        if (EMAIL.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(EMAIL).matches()){
-            mEmail.setError("enter a valid email address");
-            return false;
-        }else{
-            mEmail.setError(null);
-            return true;
-        }
+            if (EMAIL.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(EMAIL).matches()) {
+                mEmail.setError("enter a valid email address");
+                return false;
+            } else {
+                mEmail.setError(null);
+                return true;
+            }
+
     }
 }
