@@ -2,7 +2,9 @@ package rft.unideb.unsolus;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ExpandableListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,6 +31,21 @@ public class AccountSettings extends AppCompatActivity {
         listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
 
         expListView.setAdapter(listAdapter);
+
+        //child item click listener
+        expListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+                Toast.makeText(getApplicationContext(),
+                                listDataHeader.get(groupPosition)
+                                   + " : " +
+                                        listDataChild.get(listDataHeader.get(groupPosition)).get(childPosition),
+                                            Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        });
+
+
     }
 
     private void prepareListData() {
