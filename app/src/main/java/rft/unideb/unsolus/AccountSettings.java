@@ -47,6 +47,7 @@ public class AccountSettings extends AppCompatActivity {
         games.add("Steam account: ");
         games.add("Battle.net account: ");
         games.add("Uplay account: ");
+        games.add("Origins account:");
 
         listDataChild.put(listDataHeader.get(0), pwChange);
         listDataChild.put(listDataHeader.get(1), games);
