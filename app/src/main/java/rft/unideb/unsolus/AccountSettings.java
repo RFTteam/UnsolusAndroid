@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import rft.unideb.unsolus.R;
 import rft.unideb.unsolus.others.ExpandableListAdapter;
 
 public class AccountSettings extends AppCompatActivity {

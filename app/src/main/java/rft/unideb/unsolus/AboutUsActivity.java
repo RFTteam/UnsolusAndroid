@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import rft.unideb.unsolus.R;
+
 public class AboutUsActivity extends AppCompatActivity {
 
     @Override

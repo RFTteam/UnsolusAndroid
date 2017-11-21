@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     android:background="@color/backgroundColor"
@@ -52,6 +53,9 @@
                     android:id="@+id/email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/person_icon"
+                    android:drawableLeft="@drawable/person_icon"
+                    android:drawablePadding="10dp"
                     android:hint="@string/prompt_email"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
@@ -64,13 +68,17 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
+                app:passwordToggleEnabled="true"
+                android:hint="@string/prompt_password"
                 android:background="@android:color/holo_orange_light">
 
                 <EditText
                     android:id="@+id/password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/prompt_password"
+                    android:drawableStart="@drawable/lock_icon"
+                    android:drawableLeft="@drawable/lock_icon"
+                    android:drawablePadding="10dp"
                     android:imeActionId="@+id/login"
                     android:imeActionLabel="@string/action_sign_in_short"
                     android:imeOptions="actionUnspecified"
@@ -79,14 +87,6 @@
                     android:singleLine="true" />
 
             </android.support.design.widget.TextInputLayout>
-
-            <CheckBox
-                android:id="@+id/remember_me"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/remember"
-                android:buttonTint="@android:color/white"
-                android:textColor="@android:color/white"/>
 
             <Button
                 android:id="@+id/email_sign_in_button"

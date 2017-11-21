@@ -1,36 +1,47 @@
 package rft.unideb.unsolus;
 
-import android.app.ProgressDialog;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.util.Patterns;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import rft.unideb.unsolus.entities.AccessToken;
+import rft.unideb.unsolus.network.ApiService;
+import rft.unideb.unsolus.network.RetrofitBuilder;
 
 public class RegisterActivity extends AppCompatActivity {
 
     private static final String TAG = "RegisterActivity";
+
+    @BindView(R.id.input_name)
+    EditText inputName;
+    @BindView(R.id.input_email)
+    EditText inputEmail;
+    @BindView(R.id.input_password)
+    EditText inputPassword;
+
+    ApiService service;
+    Call<AccessToken> call;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        Button createAccount = (Button) findViewById(R.id.btn_signup);
+        ButterKnife.bind(this);
+
+        service = RetrofitBuilder.createService(ApiService.class);
+
         TextView backToLogin = (TextView) findViewById(R.id.link_login);
-
-        createAccount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                signUp();
-            }
-        });
-
         backToLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
@@ -39,106 +50,40 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    private void signUp() {
-        Log.d(TAG, "SignUp");
-        if (!validate()){
-            onSignupFailed();
-            return;
-        }
+    @OnClick(R.id.btn_signup)
+    void signUp() {
+        String name = inputName.getText().toString();
+        String email = inputEmail.getText().toString();
+        String password = inputPassword.getText().toString();
 
-        final ProgressDialog progressDialog = new ProgressDialog(RegisterActivity.this, R.style.AppTheme);
-            progressDialog.setIndeterminate(true);
-            progressDialog.setMessage("Creating Account...");
-            progressDialog.show();
+        call = service.register(name, email, password);
+        call.enqueue(new Callback<AccessToken>() {
+            @Override
+            public void onResponse(Call<AccessToken> call, Response<AccessToken> response) {
 
-        EditText _name = (EditText) findViewById(R.id.input_name);
-        EditText _email = (EditText) findViewById(R.id.input_email);
-        EditText _password = (EditText) findViewById(R.id.input_password);
-        EditText _age = (EditText) findViewById(R.id.input_birthday);
-        Spinner _country = (Spinner) findViewById(R.id.input_country);
-        Spinner _language = (Spinner) findViewById(R.id.input_language);
+                Log.w(TAG, "onResponse: " + response);
 
-        String name = _name.getText().toString();
-        String email = _email.getText().toString();
-        String password = _password.getText().toString();
-        String age = _age.getText().toString();
-        String country = _country.getSelectedItem().toString();
-        String language = _language.getSelectedItem().toString();
+                if (response.isSuccessful()){
 
-        //waiting for backend
-        //TODO: implement logic
+                }else{
 
-        new android.os.Handler().postDelayed(
-                new Runnable() {
-                    @Override
-                    public void run() {
-                        // depending on success
-                        onSignupSuccess();
-                        // onSignupFailed();
-                        progressDialog.dismiss();
-                    }
-                }, 3000);
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<AccessToken> call, Throwable t) {
+                Log.w(TAG, "onFailure: " + t.getMessage());
+            }
+        });
     }
 
-    private void onSignupSuccess() {
-        setResult(RESULT_OK, null);
-        finish();
-    }
-
-    private void onSignupFailed() {
-        Toast.makeText(getBaseContext(), "Failed", Toast.LENGTH_LONG).show();
-    }
-
-    private boolean validate() {
-        boolean valid = true;
-
-        EditText _name = (EditText) findViewById(R.id.input_name);
-        EditText _email = (EditText) findViewById(R.id.input_email);
-        EditText _password = (EditText) findViewById(R.id.input_password);
-        EditText _password_confirm = (EditText) findViewById(R.id.input_passwordConfirm);
-        EditText _age = (EditText) findViewById(R.id.input_birthday);
-
-        String name = _name.getText().toString();
-        String email = _email.getText().toString();
-        String password = _password.getText().toString();
-        String pwConf = _password_confirm.getText().toString();
-        String age = _age.getText().toString();
-
-        if (name.isEmpty() || name.length() < 3 || name.length() > 15){
-            _name.setError("between 3 & 15 character");
-            valid = false;
-        }else{
-            _name.setError(null);
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(call != null) {
+            call.cancel();
+            call = null;
         }
-
-        if (email.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-            _email.setError("enter a valid email address");
-            valid = false;
-        }else{
-            _email.setError(null);
-        }
-
-        if (password.isEmpty() || password.length() < 6){
-            _password.setError("at least 6 character");
-            valid = false;
-        }else{
-            _password.setError(null);
-        }
-
-        if (pwConf.isEmpty() || !pwConf.equals(password)){
-            _password_confirm.setError("the 2 password doesnt equals");
-            valid = false;
-        }else{
-            _password_confirm.setError(null);
-        }
-
-        if (age.isEmpty()){
-            _age.setError("enter your birthday");
-            valid = false;
-        }else{
-            _age.setError(null);
-        }
-
-        return valid;
     }
 }
