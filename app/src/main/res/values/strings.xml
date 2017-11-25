@@ -9,16 +9,15 @@
     <string name="action_register">Sign up</string>
     <string name="action_register_short">Sign up</string>
     <string name="create_account">Create account</string>
-    <string name="error_invalid_email">This email address is invalid</string>
-    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_invalid_name">The name field is required.</string>
+    <string name="error_invalid_email">This email address is invalid.</string>
+    <string name="error_invalid_password">This password is too short. (min 6 char)</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_invalid_mail_pw">This email or password incorrect</string>
     <string name="forgot_password">Forgot your password?</string>
     <string name="error_field_required">This field is required</string>
     <string name="already_member_login">Already a member? Login</string>
     <string name="remember">Remember Me</string>
-
-    <!-- It will be useful later.. i guess -->
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."</string>
 
@@ -405,7 +404,6 @@
         <item>Zulu</item>
     </string-array>
 
-    <!-- speaking for myself.. -->
     <string name="title_activity_main">MainActivity</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>

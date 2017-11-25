@@ -20,7 +20,7 @@ import rft.unideb.unsolus.BuildConfig;
 
 public class RetrofitBuilder {
 
-    private static final String BASE_URL = "http://localhost:8000/";
+    private static final String BASE_URL = "http://localhost:8000/api/";
 
     private final static OkHttpClient client = buildClient();
     private final static Retrofit retrofit = buildRetrofit(client);
@@ -30,11 +30,11 @@ public class RetrofitBuilder {
             @Override
             public Response intercept(Chain chain) throws IOException {
                 Request request = chain.request();
-                Request.Builder builder1 = request.newBuilder()
+                Request.Builder builder = request.newBuilder()
                                                   .addHeader("Accept", "application/json")
                                                   .addHeader("Connection", "close");
 
-                request = builder1.build();
+                request = builder.build();
 
                 return chain.proceed(request);
             }
@@ -59,4 +59,7 @@ public class RetrofitBuilder {
         return retrofit.create(service);
     }
 
+    public static Retrofit getRetrofit() {
+        return retrofit;
+    }
 }
