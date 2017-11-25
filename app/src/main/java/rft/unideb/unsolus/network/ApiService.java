@@ -16,4 +16,7 @@ public interface ApiService {
     @FormUrlEncoded
     Call<AccessToken> register(@Field("name") String name, @Field("email") String email, @Field("password") String password);
 
+    @POST("signin")
+    @FormUrlEncoded
+    Call<AccessToken> signin(@Field("email") String email, @Field("password") String password);
 }

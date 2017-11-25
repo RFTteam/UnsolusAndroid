@@ -1,5 +1,6 @@
 package rft.unideb.unsolus;
 
+import android.content.Intent;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -45,8 +46,6 @@ public class RegisterActivity extends AppCompatActivity {
     EditText inputEmail;
     @BindView(R.id.input_password)
     EditText inputPassword;
-    @BindView(R.id.link_login)
-    TextView backToLogin;
 
     ApiService service;
     Call<AccessToken> call;
@@ -69,12 +68,10 @@ public class RegisterActivity extends AppCompatActivity {
 
         tokenManager = TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE));
 
-        backToLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v){
-                finish();
-            }
-        });
+        if (tokenManager.getToken().getToken() != null){
+            startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+            finish();
+        }
     }
 
     @OnClick(R.id.btn_signup)
@@ -100,6 +97,8 @@ public class RegisterActivity extends AppCompatActivity {
                     if (response.isSuccessful()){
                         Log.w(TAG, "onResponse: " + response.body());
                         tokenManager.saveToken(response.body());
+                        startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+                        finish();
                     }else{
                         handleErrors(response.errorBody());
                     }
@@ -144,5 +143,10 @@ public class RegisterActivity extends AppCompatActivity {
             call.cancel();
             call = null;
         }
+    }
+
+    @OnClick(R.id.link_login)
+    void backToLogin(){
+        finish();
     }
 }
