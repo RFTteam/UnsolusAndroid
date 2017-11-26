@@ -1,33 +1,19 @@
 package rft.unideb.unsolus;
 
 import android.content.Intent;
-import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
-import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
-
-import com.basgeekball.awesomevalidation.AwesomeValidation;
-import com.basgeekball.awesomevalidation.ValidationStyle;
-import com.basgeekball.awesomevalidation.utility.RegexTemplate;
-
-import java.io.IOException;
-import java.lang.annotation.Annotation;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Pattern;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.ResponseBody;
-import okhttp3.internal.Util;
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Converter;
 import retrofit2.Response;
 import rft.unideb.unsolus.entities.AccessToken;
 import rft.unideb.unsolus.entities.ApiError;
@@ -47,11 +33,9 @@ public class RegisterActivity extends AppCompatActivity {
     @BindView(R.id.input_password)
     EditText inputPassword;
 
+    boolean validate;
     ApiService service;
     Call<AccessToken> call;
-
-    AwesomeValidation validator;
-
     TokenManager tokenManager;
 
     @Override
@@ -63,9 +47,6 @@ public class RegisterActivity extends AppCompatActivity {
 
         service = RetrofitBuilder.createService(ApiService.class);
 
-        validator = new AwesomeValidation(ValidationStyle.TEXT_INPUT_LAYOUT);
-        setupRules();
-
         tokenManager = TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE));
 
         if (tokenManager.getToken().getToken() != null){
@@ -76,17 +57,28 @@ public class RegisterActivity extends AppCompatActivity {
 
     @OnClick(R.id.btn_signup)
     void register() {
+        validate = true;
+
         String name = inputName.getText().toString();
         String email = inputEmail.getText().toString();
         String password = inputPassword.getText().toString();
 
-        inputName.setError(null);
-        inputEmail.setError(null);
-        inputPassword.setError(null);
+        if (name.isEmpty()){
+            inputName.setError("Enter your name");
+            validate = false;
+        }
 
-        validator.clear();
+        if(email.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+            inputEmail.setError("Enter a valid email address");
+            validate = false;
+        }
 
-        if (validator.validate()){
+        if (password.isEmpty()){
+            inputPassword.setError("Enter your password");
+            validate = false;
+        }
+
+        if (validate){
             call = service.register(name, email, password);
             call.enqueue(new Callback<AccessToken>() {
                 @Override
@@ -97,7 +89,7 @@ public class RegisterActivity extends AppCompatActivity {
                     if (response.isSuccessful()){
                         Log.w(TAG, "onResponse: " + response.body());
                         tokenManager.saveToken(response.body());
-                        startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+                        startActivity(new Intent(RegisterActivity.this, AccountSettingsActivity.class));
                         finish();
                     }else{
                         handleErrors(response.errorBody());
@@ -130,9 +122,6 @@ public class RegisterActivity extends AppCompatActivity {
 
     public void setupRules(){
 
-        validator.addValidation(this, R.id.input_name, RegexTemplate.NOT_EMPTY, R.string.error_invalid_name);
-        validator.addValidation(this, R.id.input_email, Patterns.EMAIL_ADDRESS, R.string.error_invalid_email);
-        validator.addValidation(this, R.id.input_password, "[a-zA-Z0-9]{6,}", R.string.error_invalid_password);
 
     }
 

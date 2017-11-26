@@ -191,7 +191,7 @@ public class MainActivity extends AppCompatActivity {
                         drawer.closeDrawers();
                         return true;
                     case R.id.nav_account_settings:
-                        startActivity(new Intent(MainActivity.this, AccountSettings.class));
+                        startActivity(new Intent(MainActivity.this, AccountSettingsActivity.class));
                         drawer.closeDrawers();
                         return true;
                     default:

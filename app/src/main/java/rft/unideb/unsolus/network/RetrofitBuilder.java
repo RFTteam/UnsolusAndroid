@@ -20,7 +20,7 @@ import rft.unideb.unsolus.BuildConfig;
 
 public class RetrofitBuilder {
 
-    private static final String BASE_URL = "http://localhost:8000/api/";
+    private static final String BASE_URL = "https://127.0.0.1:8000/api/";
 
     private final static OkHttpClient client = buildClient();
     private final static Retrofit retrofit = buildRetrofit(client);

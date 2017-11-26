@@ -13,7 +13,7 @@ import java.util.List;
 import rft.unideb.unsolus.R;
 import rft.unideb.unsolus.others.ExpandableListAdapter;
 
-public class AccountSettings extends AppCompatActivity {
+public class AccountSettingsActivity extends AppCompatActivity {
 
     ExpandableListAdapter listAdapter;
     ExpandableListView expListView;
@@ -53,8 +53,14 @@ public class AccountSettings extends AppCompatActivity {
         listDataHeader = new ArrayList<String>();
         listDataChild = new HashMap<String, List<String>>();
 
+        listDataHeader.add("Personal Information");
         listDataHeader.add("Change Password");
         listDataHeader.add("Games settings");
+
+        List<String> personalInfo = new ArrayList<String>();
+        personalInfo.add("Year of birth: ");
+        personalInfo.add("Country: ");
+        personalInfo.add("Language: ");
 
         List<String> pwChange = new ArrayList<String>();
         pwChange.add("Old password: ");
@@ -67,7 +73,8 @@ public class AccountSettings extends AppCompatActivity {
         games.add("Uplay account: ");
         games.add("Origins account:");
 
-        listDataChild.put(listDataHeader.get(0), pwChange);
-        listDataChild.put(listDataHeader.get(1), games);
+        listDataChild.put(listDataHeader.get(0), personalInfo);
+        listDataChild.put(listDataHeader.get(1), pwChange);
+        listDataChild.put(listDataHeader.get(2), games);
     }
 }

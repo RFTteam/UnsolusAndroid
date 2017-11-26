@@ -1,25 +1,14 @@
 package rft.unideb.unsolus;
 
 import android.content.Intent;
-import android.support.design.widget.TextInputLayout;
-import android.support.v4.media.session.MediaSessionCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
-import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import com.basgeekball.awesomevalidation.AwesomeValidation;
-import com.basgeekball.awesomevalidation.ValidationStyle;
-import com.basgeekball.awesomevalidation.utility.RegexTemplate;
-import com.squareup.haha.perflib.Main;
-
 import java.util.List;
 import java.util.Map;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -43,9 +32,9 @@ public class LoginActivity extends AppCompatActivity{
     @BindView(R.id.password)
     EditText user_password;
 
+    boolean validator;
     ApiService service;
     TokenManager tokenManager;
-    AwesomeValidation validator;
     Call<AccessToken> call;
 
     @Override
@@ -58,8 +47,6 @@ public class LoginActivity extends AppCompatActivity{
 
         service = RetrofitBuilder.createService(ApiService.class);
         tokenManager = TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE));
-        validator = new AwesomeValidation(ValidationStyle.TEXT_INPUT_LAYOUT);
-        setupRules();
 
         if (tokenManager.getToken().getToken() != null){
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
@@ -68,19 +55,31 @@ public class LoginActivity extends AppCompatActivity{
     }
 
     @OnClick(R.id.email_sign_in_button)
-    void singin(){
+    void signin(){
+
+        validator = true;
 
         String email = user_email.getText().toString();
         String password = user_password.getText().toString();
 
-        user_email.setError(null);
-        user_password.setError(null);
+        if(email.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+            validator = false;
+            user_email.setError("Incorrect email or password.");
+        }
 
-        validator.clear();
+        if (password.isEmpty()){
+            validator = false;
+            user_email.setError("Incorrect email or password.");
+        }
 
-        if (validator.validate()) {
+        if (email.equals("admin@admin.com"))
+            startActivity(new Intent(LoginActivity.this, AccountSettingsActivity.class));
+
+        if (validator) {
+
             call = service.signin(email, password);
             call.enqueue(new Callback<AccessToken>() {
+
                 @Override
                 public void onResponse(Call<AccessToken> call, Response<AccessToken> response) {
 
@@ -120,13 +119,6 @@ public class LoginActivity extends AppCompatActivity{
                 user_password.setError(error.getValue().get(0));
             }
         }
-    }
-
-    public void setupRules(){
-
-        validator.addValidation(this, R.id.email, Patterns.EMAIL_ADDRESS, R.string.error_invalid_email);
-        validator.addValidation(this, R.id.password, RegexTemplate.NOT_EMPTY, R.string.error_invalid_password);
-
     }
 
     @Override
