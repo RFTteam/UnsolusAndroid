@@ -40,8 +40,8 @@
 
 
             <!-- Save Button -->
-            <android.support.v7.widget.AppCompatButton
-                android:id="@+id/btn_signup"
+            <Button
+                android:id="@+id/btn_saveSettings"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"

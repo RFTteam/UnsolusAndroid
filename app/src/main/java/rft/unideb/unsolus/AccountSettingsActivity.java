@@ -1,15 +1,20 @@
 package rft.unideb.unsolus;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
+
+import com.squareup.haha.perflib.Main;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import butterknife.OnClick;
 import rft.unideb.unsolus.R;
 import rft.unideb.unsolus.others.ExpandableListAdapter;
 
@@ -46,6 +51,13 @@ public class AccountSettingsActivity extends AppCompatActivity {
             }
         });
 
+        final Button saveSettings = findViewById(R.id.btn_saveSettings);
+        saveSettings.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(AccountSettingsActivity.this, MainActivity.class));
+            }
+        });
 
     }
 
@@ -70,11 +82,15 @@ public class AccountSettingsActivity extends AppCompatActivity {
         List<String> games = new ArrayList<String>();
         games.add("Steam account: ");
         games.add("Battle.net account: ");
-        games.add("Uplay account: ");
-        games.add("Origins account:");
 
         listDataChild.put(listDataHeader.get(0), personalInfo);
         listDataChild.put(listDataHeader.get(1), pwChange);
         listDataChild.put(listDataHeader.get(2), games);
     }
+
+    @Override
+    public void onBackPressed() {
+        Toast.makeText(getApplicationContext(), "Press save settings!", Toast.LENGTH_LONG).show();
+    }
+
 }

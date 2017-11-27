@@ -5,10 +5,6 @@ import android.app.Application;
 import com.facebook.stetho.Stetho;
 import com.squareup.leakcanary.LeakCanary;
 
-/**
- * Created by Tibor on 2017. 11. 21..
- */
-
 public class MyApp extends Application{
 
     @Override
@@ -23,7 +19,7 @@ public class MyApp extends Application{
             return;
         }
         LeakCanary.install(this);
-        // Normal app init code...
+
     }
 }
 

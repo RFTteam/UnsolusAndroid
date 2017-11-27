@@ -6,22 +6,17 @@ import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
 import android.widget.EditText;
-import android.widget.Toast;
-import java.util.List;
-import java.util.Map;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import rft.unideb.unsolus.entities.AccessToken;
-import rft.unideb.unsolus.entities.ApiError;
 import rft.unideb.unsolus.network.ApiService;
 import rft.unideb.unsolus.network.RetrofitBuilder;
 import rft.unideb.unsolus.others.TokenManager;
-import rft.unideb.unsolus.others.Utils;
 
 public class LoginActivity extends AppCompatActivity{
 
@@ -72,9 +67,6 @@ public class LoginActivity extends AppCompatActivity{
             user_email.setError("Incorrect email or password.");
         }
 
-        if (email.equals("admin@admin.com"))
-            startActivity(new Intent(LoginActivity.this, AccountSettingsActivity.class));
-
         if (validator) {
 
             call = service.signin(email, password);
@@ -90,12 +82,8 @@ public class LoginActivity extends AppCompatActivity{
                         startActivity(new Intent(LoginActivity.this, MainActivity.class));
                         finish();
                     } else {
-                        if (response.code() == 422) {
-                            handleErrors(response.errorBody());
-                        }
                         if (response.code() == 401) {
-                            ApiError apiError = Utils.convertErrors(response.errorBody());
-                            Toast.makeText(LoginActivity.this, apiError.getMessage(), Toast.LENGTH_LONG).show();
+                            user_email.setError(response.message());
                         }
                     }
                 }
@@ -105,19 +93,6 @@ public class LoginActivity extends AppCompatActivity{
                     Log.w(TAG, "onFailure: " + t.getMessage());
                 }
             });
-        }
-    }
-
-    private void handleErrors(ResponseBody response){
-        ApiError apiError = Utils.convertErrors(response);
-
-        for (Map.Entry<String, List<String>> error : apiError.getErrors().entrySet()){
-            if (error.getKey().equals("email")){
-                user_email.setError(error.getValue().get(0));
-            }
-            if (error.getKey().equals("password")){
-                user_password.setError(error.getValue().get(0));
-            }
         }
     }
 

@@ -1,10 +1,13 @@
 package rft.unideb.unsolus;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
@@ -16,9 +19,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import butterknife.BindView;
+import butterknife.OnClick;
+import retrofit2.http.Body;
 import rft.unideb.unsolus.fragments.GamesFragment;
 import rft.unideb.unsolus.fragments.HomeFragment;
 import rft.unideb.unsolus.fragments.PlayersFragment;
@@ -26,10 +33,14 @@ import rft.unideb.unsolus.fragments.TeamsFragment;
 
 public class MainActivity extends AppCompatActivity {
 
+    @BindView(R.id.userName)
+    TextView txtName;
+    @BindView(R.id.userEmail)
+    TextView txtEmail;
+
     private NavigationView navigationView;
     private DrawerLayout drawer;
-    private View navHeader;
-    private TextView txtName, txtEmail;
+    private View hView;
     private Toolbar toolbar;
     private FloatingActionButton fab;
 
@@ -71,13 +82,9 @@ public class MainActivity extends AppCompatActivity {
         toggle.syncState();
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
-
-     //   txtName = (TextView) navHeader.findViewById(R.id.userName);
-     //   txtEmail = (TextView) navHeader.findViewById(R.id.userEmail);
+        hView = navigationView.getHeaderView(0);
 
         activityTitles = getResources().getStringArray(R.array.nav_item_activity_titles);
-
-        loadNavHeader();
 
         setUpNavigationView();
 
@@ -86,11 +93,9 @@ public class MainActivity extends AppCompatActivity {
             CURRENT_TAG = TAG_Home;
             loadHomeFragment();
         }
-    }
 
-    private void loadNavHeader() {
-      // txtName.setText("User name");
-      // txtEmail.setText("User email");
+        String username = getSharedPreferences("prefs", MODE_PRIVATE).getString("TOKEN", "");
+        Toast.makeText(getApplicationContext(), username, Toast.LENGTH_LONG).show();
     }
 
     private void loadHomeFragment() {
@@ -194,6 +199,9 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(new Intent(MainActivity.this, AccountSettingsActivity.class));
                         drawer.closeDrawers();
                         return true;
+                    case R.id.nav_logout:
+                        Toast.makeText(getApplicationContext(), "Logout user!", Toast.LENGTH_LONG).show();
+                       logout();
                     default:
                         navItemIndex=0;
                 }
@@ -216,13 +224,11 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onDrawerClosed(View drawerView) {
-                // Code here will be triggered once the drawer closes as we dont want anything to happen so we leave this blank
                 super.onDrawerClosed(drawerView);
             }
 
             @Override
             public void onDrawerOpened(View drawerView) {
-                // Code here will be triggered once the drawer open as we dont want anything to happen so we leave this blank
                 super.onDrawerOpened(drawerView);
             }
         };
@@ -236,7 +242,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        //DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
             return;
@@ -258,8 +263,6 @@ public class MainActivity extends AppCompatActivity {
         if (navItemIndex == 0){
             getMenuInflater().inflate(R.menu.main, menu);
         }
-        //not finished yet
-        // TODO:
         return true;
     }
 
@@ -272,9 +275,19 @@ public class MainActivity extends AppCompatActivity {
 
         if (id == R.id.action_logout){
             Toast.makeText(getApplicationContext(), "Logout user!", Toast.LENGTH_LONG).show();
+            logout();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    void logout(){
+        SharedPreferences preferences = getSharedPreferences("prefs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.clear();
+        editor.commit();
+        finish();
+        startActivity(new Intent(MainActivity.this, LoginActivity.class));
     }
 }
