@@ -14,4 +14,23 @@
         android:textColor="@color/orange"
         android:paddingLeft="?android:attr/expandableListPreferredChildPaddingLeft" />
 
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@android:color/holo_orange_light">
+<!--
+        <AutoCompleteTextView
+            android:id="@+id/element"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawablePadding="10dp"
+            android:inputType="text"
+            android:maxLines="1"
+            android:singleLine="true" />
+-->
+    </android.support.design.widget.TextInputLayout>
+
+
 </LinearLayout>

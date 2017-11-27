@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         String username = getSharedPreferences("prefs", MODE_PRIVATE).getString("TOKEN", "");
-        Toast.makeText(getApplicationContext(), username, Toast.LENGTH_LONG).show();
+
     }
 
     private void loadHomeFragment() {
