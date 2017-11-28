@@ -7,10 +7,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.media.session.MediaSessionCompat;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -21,17 +19,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.http.Body;
 import rft.unideb.unsolus.entities.User;
 import rft.unideb.unsolus.fragments.GamesFragment;
 import rft.unideb.unsolus.fragments.HomeFragment;
@@ -114,8 +107,10 @@ public class MainActivity extends AppCompatActivity {
 
 
         tokenManager = TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE));
+
         service = RetrofitBuilder.createServiceWithToken(ApiService.class,tokenManager);
         getUserCredentials();
+        getAllUser();
     }
 
     void getUserCredentials(){
@@ -133,6 +128,21 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    void getAllUser(){
+        call = service.getUsers(tokenManager.getToken().getToken());
+            call.enqueue(new Callback<User>() {
+                @Override
+                public void onResponse(Call<User> call, Response<User> response) {
+                    Log.w(TAG, "onResponse: " + response );
+                }
+
+                @Override
+                public void onFailure(Call<User> call, Throwable t) {
+                    Log.w(TAG, "onFailure: " + t.getMessage() );
+                }
+            });
 
     }
 

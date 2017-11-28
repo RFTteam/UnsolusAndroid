@@ -5,7 +5,6 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 import rft.unideb.unsolus.entities.AccessToken;
 import rft.unideb.unsolus.entities.User;
@@ -22,4 +21,8 @@ public interface ApiService {
 
     @GET("api/user?token=")
     Call<User> getUser(@Query("token") String token);
+
+    @GET("api/users?token=")
+    Call<User> getUsers(@Query("token") String token);
+
 }
