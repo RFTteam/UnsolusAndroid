@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     android:background="@color/backgroundColor"
@@ -36,8 +37,8 @@
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="160dp"
-                android:layout_height="160dp"
+                android:layout_width="140dp"
+                android:layout_height="140dp"
                 android:layout_gravity="center"
                 android:src="@drawable/logo" />
 
@@ -52,6 +53,9 @@
                     android:id="@+id/email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/person_icon"
+                    android:drawableLeft="@drawable/person_icon"
+                    android:drawablePadding="10dp"
                     android:hint="@string/prompt_email"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
@@ -64,13 +68,17 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
+                app:passwordToggleEnabled="true"
+                android:hint="@string/prompt_password"
                 android:background="@android:color/holo_orange_light">
 
                 <EditText
                     android:id="@+id/password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/prompt_password"
+                    android:drawableStart="@drawable/lock_icon"
+                    android:drawableLeft="@drawable/lock_icon"
+                    android:drawablePadding="10dp"
                     android:imeActionId="@+id/login"
                     android:imeActionLabel="@string/action_sign_in_short"
                     android:imeOptions="actionUnspecified"
@@ -90,6 +98,16 @@
                 android:text="@string/action_sign_in"
                 android:textStyle="bold"
                 android:layout_gravity="center"/>
+
+            <TextView
+                android:id="@+id/forgot_PW"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:textSize="16dip"
+                android:textColor="@android:color/white"
+                android:text="@string/forgot_password" />
 
             <Button
                 android:id="@+id/register_button"

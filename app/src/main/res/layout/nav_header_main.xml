@@ -17,7 +17,7 @@
         android:src="@drawable/side_nav_bar"/>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:orientation="vertical"
@@ -27,23 +27,22 @@
             android:id="@+id/imageView"
             android:layout_width="110dp"
             android:layout_height="110dp"
+            android:layout_weight="0.1"
             android:paddingTop="@dimen/nav_header_vertical_spacing"
-            android:src="@drawable/logo"
-            android:layout_weight="0.42" />
+            android:src="@drawable/logo" />
 
         <TextView
             android:id="@+id/userName"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="@dimen/nav_header_vertical_spacing"
-            android:text="User name"
+            android:text="User Name"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
         <TextView
             android:id="@+id/userEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="actual@user.email" />
+            android:text="Email@address.com"/>
 
     </LinearLayout>
 </RelativeLayout>

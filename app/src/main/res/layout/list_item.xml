@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="55dip"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/expListItem"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textSize="17dip"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:textColor="@color/orange"
+        android:paddingLeft="?android:attr/expandableListPreferredChildPaddingLeft" />
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@android:color/holo_orange_light">
+<!--
+        <AutoCompleteTextView
+            android:id="@+id/element"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawablePadding="10dp"
+            android:inputType="text"
+            android:maxLines="1"
+            android:singleLine="true" />
+-->
+    </android.support.design.widget.TextInputLayout>
+
+
+</LinearLayout>

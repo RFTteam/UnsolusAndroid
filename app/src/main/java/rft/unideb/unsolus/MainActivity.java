@@ -1,11 +1,15 @@
 package rft.unideb.unsolus;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,22 +19,33 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import rft.unideb.unsolus.entities.User;
 import rft.unideb.unsolus.fragments.GamesFragment;
 import rft.unideb.unsolus.fragments.HomeFragment;
 import rft.unideb.unsolus.fragments.PlayersFragment;
 import rft.unideb.unsolus.fragments.TeamsFragment;
+import rft.unideb.unsolus.network.ApiService;
+import rft.unideb.unsolus.network.RetrofitBuilder;
+import rft.unideb.unsolus.others.TokenManager;
 
 public class MainActivity extends AppCompatActivity {
-  //      implements NavigationView.OnNavigationItemSelectedListener {
 
+    private static final String TAG = "MainActivity";
+//try
+  /*  @BindView(R.id.userName)
+    TextView txtName;
+    @BindView(R.id.userEmail)
+    TextView txtEmail;
+*/
     private NavigationView navigationView;
     private DrawerLayout drawer;
-    private View navHeader;
-    private TextView txtName, txtEmail; //later for user name and email
+    private View hView;
     private Toolbar toolbar;
     private FloatingActionButton fab;
 
@@ -40,13 +55,16 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG_Games = "games";
     private static final String TAG_Players = "players";
     private static final String TAG_Teams = "teams";
-    private static final String TAG_Settings = "settings";
     public static String CURRENT_TAG = TAG_Home;
 
     private String[] activityTitles;
 
     private boolean shouldLoadHomeFragOnBackPress = true;
     private Handler mHandler;
+
+    ApiService service;
+    TokenManager tokenManager;
+    Call<User> call;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,13 +73,15 @@ public class MainActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        ButterKnife.bind(this);
+
         mHandler = new Handler();
 
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Contact Support /Coming Soon.../", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Just a flying button.. yet..", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
@@ -73,23 +93,57 @@ public class MainActivity extends AppCompatActivity {
         toggle.syncState();
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
-      //  navigationView.setNavigationItemSelectedListener(this);
+        hView = navigationView.getHeaderView(0);
 
         activityTitles = getResources().getStringArray(R.array.nav_item_activity_titles);
 
-        loadNavHeader();
-
         setUpNavigationView();
-
 
         if (savedInstanceState == null){
             navItemIndex = 0;
             CURRENT_TAG = TAG_Home;
             loadHomeFragment();
         }
+
+
+        tokenManager = TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE));
+
+        service = RetrofitBuilder.createServiceWithToken(ApiService.class,tokenManager);
+        getUserCredentials();
+        getAllUser();
     }
 
-    private void loadNavHeader() {
+    void getUserCredentials(){
+        call = service.getUser(tokenManager.getToken().getToken());
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                Log.w(TAG, "onResponse: " + response );
+                Toast.makeText(MainActivity.this, "Hello ujra " + response.body().getUsername(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                Log.w(TAG, "onFailure: " + t.getMessage() );
+            }
+        });
+
+    }
+
+    void getAllUser(){
+        call = service.getUsers(tokenManager.getToken().getToken());
+            call.enqueue(new Callback<User>() {
+                @Override
+                public void onResponse(Call<User> call, Response<User> response) {
+                    Log.w(TAG, "onResponse: " + response );
+                }
+
+                @Override
+                public void onFailure(Call<User> call, Throwable t) {
+                    Log.w(TAG, "onFailure: " + t.getMessage() );
+                }
+            });
+
     }
 
     private void loadHomeFragment() {
@@ -185,6 +239,17 @@ public class MainActivity extends AppCompatActivity {
                         navItemIndex=3;
                         CURRENT_TAG=TAG_Teams;
                         break;
+                    case R.id.nav_about_us:
+                        startActivity(new Intent(MainActivity.this, AboutUsActivity.class));
+                        drawer.closeDrawers();
+                        return true;
+                    case R.id.nav_account_settings:
+                        startActivity(new Intent(MainActivity.this, AccountSettingsActivity.class));
+                        drawer.closeDrawers();
+                        return true;
+                    case R.id.nav_logout:
+                        Toast.makeText(getApplicationContext(), "Logout user!", Toast.LENGTH_LONG).show();
+                       logout();
                     default:
                         navItemIndex=0;
                 }
@@ -207,13 +272,11 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onDrawerClosed(View drawerView) {
-                // Code here will be triggered once the drawer closes as we dont want anything to happen so we leave this blank
                 super.onDrawerClosed(drawerView);
             }
 
             @Override
             public void onDrawerOpened(View drawerView) {
-                // Code here will be triggered once the drawer open as we dont want anything to happen so we leave this blank
                 super.onDrawerOpened(drawerView);
             }
         };
@@ -227,7 +290,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        //DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
             return;
@@ -240,7 +302,7 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
         }
-            super.onBackPressed();
+        super.onBackPressed();
     }
 
     @Override
@@ -249,8 +311,6 @@ public class MainActivity extends AppCompatActivity {
         if (navItemIndex == 0){
             getMenuInflater().inflate(R.menu.main, menu);
         }
-        //not finished yet
-        // TODO:
         return true;
     }
 
@@ -261,40 +321,30 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_about) {
-            return true;
-        }
         if (id == R.id.action_logout){
             Toast.makeText(getApplicationContext(), "Logout user!", Toast.LENGTH_LONG).show();
+            logout();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
-    /*
-    @SuppressWarnings("StatementWithEmptyBody")
+
+    void logout(){
+        SharedPreferences preferences = getSharedPreferences("prefs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.clear();
+        editor.commit();
+        finish();
+        startActivity(new Intent(MainActivity.this, LoginActivity.class));
+    }
+
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_home) {
-            // Handle the camera action
-        } else if (id == R.id.nav_games) {
-
-        } else if (id == R.id.nav_players) {
-
-        } else if (id == R.id.nav_teams) {
-
-        } else if (id == R.id.nav_account_settings) {
-
-        } else if (id == R.id.nav_logout) {
-
+    protected void onDestroy() {
+        super.onDestroy();
+        if(call != null){
+            call.cancel();
+            call = null;
         }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }*/
+    }
 }

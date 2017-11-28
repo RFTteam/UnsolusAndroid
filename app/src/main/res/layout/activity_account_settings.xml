@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundColor"
+    tools:context="rft.unideb.unsolus.AccountSettingsActivity">
+
+    <ScrollView
+        android:id="@+id/login_form"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp"
+            android:weightSum="1"
+            tools:layout_editor_absoluteY="8dp"
+            tools:layout_editor_absoluteX="8dp">
+
+            <!--Main title-->
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:layout_marginTop="24dp">
+
+                <TextView android:id="@+id/account_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="30dp"
+                    android:textColor="@color/orange"
+                    android:gravity="center"
+                    android:text="@string/account_settings_title"
+                    />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <!--Personal info-->
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:layout_marginTop="24dp">
+
+                <TextView android:id="@+id/personal_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="22dp"
+                    android:textColor="@color/orange"
+                    android:gravity="left"
+                    android:text="@string/personal_info"
+                    />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:background="@android:color/holo_orange_light">
+
+                <EditText
+                    android:id="@+id/input_birthday"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/birthday_icon"
+                    android:drawablePadding="10dp"
+                    android:drawableStart="@drawable/birthday_icon"
+                    android:hint="Birthday"
+                    android:inputType="date" />
+            </android.support.design.widget.TextInputLayout>
+
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:background="@android:color/holo_orange_light">
+
+                <TextView
+                    android:id="@+id/select_country"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:clickable="false"
+                    android:drawableLeft="@drawable/country_icon"
+                    android:drawablePadding="10dp"
+                    android:drawableStart="@drawable/country_icon"
+                    android:text="Choose your Country" />
+
+                <Spinner
+                    android:id="@+id/input_country"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textFilter"
+                    android:entries="@array/country_arrays"
+                    android:hint="Country"/>
+            </android.support.design.widget.TextInputLayout>
+
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:background="@android:color/holo_orange_light">
+
+                <TextView
+                    android:id="@+id/select_langauge"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:clickable="false"
+                    android:drawableLeft="@drawable/language_icon"
+                    android:drawablePadding="10dp"
+                    android:drawableStart="@drawable/language_icon"
+                    android:text="Choose your Language" />
+
+                <Spinner
+                    android:id="@+id/input_language"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Language"
+                    android:entries="@array/language_arrays"
+                    android:inputType="textCapWords" />
+            </android.support.design.widget.TextInputLayout>
+
+            <!--Create new password-->
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:layout_marginTop="24dp">
+
+                <TextView android:id="@+id/create_new_pw"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="22dp"
+                    android:textColor="@color/orange"
+                    android:gravity="left"
+                    android:text="@string/create_new_pw"
+                    />
+
+            </android.support.design.widget.TextInputLayout>
+
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginLeft="50dp"
+                            android:layout_marginRight="50dp"
+                            app:passwordToggleEnabled="true"
+                            android:background="@android:color/holo_orange_light">
+
+                            <EditText
+                                android:id="@+id/input_Oldpassword"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/lock_icon"
+                                android:drawablePadding="10dp"
+                                android:drawableStart="@drawable/lock_icon"
+                                android:hint="Old password"
+                                android:inputType="textPassword" />
+                        </android.support.design.widget.TextInputLayout>
+
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginLeft="50dp"
+                            android:layout_marginRight="50dp"
+                            app:passwordToggleEnabled="true"
+                            android:background="@android:color/holo_orange_light">
+
+                            <EditText
+                                android:id="@+id/input_Newpassword"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/lock_icon"
+                                android:drawablePadding="10dp"
+                                android:drawableStart="@drawable/lock_icon"
+                                android:hint="New password"
+                                android:inputType="textPassword" />
+                        </android.support.design.widget.TextInputLayout>
+
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginLeft="50dp"
+                            android:layout_marginRight="50dp"
+                            app:passwordToggleEnabled="true"
+                            android:background="@android:color/holo_orange_light">
+
+                            <EditText
+                                android:id="@+id/input_ConfirmNewpassword"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/lock_icon"
+                                android:drawablePadding="10dp"
+                                android:drawableStart="@drawable/lock_icon"
+                                android:hint="Confirm new password"
+                                android:inputType="textPassword" />
+                        </android.support.design.widget.TextInputLayout>
+
+            <!--Game accounts-->
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:layout_marginTop="24dp">
+
+                <TextView android:id="@+id/game_accounts"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="22dp"
+                    android:textColor="@color/orange"
+                    android:gravity="left"
+                    android:text="@string/game_accs"
+                    />
+
+            </android.support.design.widget.TextInputLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:background="@android:color/holo_orange_light">
+
+                        <EditText
+                            android:id="@+id/steam_acc"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@drawable/accounts_icon"
+                            android:drawablePadding="10dp"
+                            android:drawableStart="@drawable/accounts_icon"
+                            android:hint="Steam account link"
+                            android:inputType="textCapWords" />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:background="@android:color/holo_orange_light">
+
+                        <EditText
+                            android:id="@+id/battle_net_acc"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@drawable/accounts_icon"
+                            android:drawablePadding="10dp"
+                            android:drawableStart="@drawable/accounts_icon"
+                            android:hint="Battle.net account link"
+                            android:inputType="textCapWords" />
+                    </android.support.design.widget.TextInputLayout>
+<!--
+            <ExpandableListView android:id="@+id/setting_expendableLV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+-->
+
+            <!-- Save Button -->
+            <Button
+                android:id="@+id/btn_saveSettings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="24dp"
+                android:padding="12dp"
+                android:layout_gravity="center"
+                android:text="@string/save_settings"
+                android:background="@android:color/holo_orange_dark"/>
+
+         </LinearLayout>
+    </ScrollView>
+</android.support.constraint.ConstraintLayout>
