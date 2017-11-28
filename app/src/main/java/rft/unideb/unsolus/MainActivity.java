@@ -10,6 +10,8 @@ import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.media.session.MediaSessionCompat;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -24,20 +26,30 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.http.Body;
+import rft.unideb.unsolus.entities.User;
 import rft.unideb.unsolus.fragments.GamesFragment;
 import rft.unideb.unsolus.fragments.HomeFragment;
 import rft.unideb.unsolus.fragments.PlayersFragment;
 import rft.unideb.unsolus.fragments.TeamsFragment;
+import rft.unideb.unsolus.network.ApiService;
+import rft.unideb.unsolus.network.RetrofitBuilder;
+import rft.unideb.unsolus.others.TokenManager;
 
 public class MainActivity extends AppCompatActivity {
 
-    @BindView(R.id.userName)
+    private static final String TAG = "MainActivity";
+//try
+  /*  @BindView(R.id.userName)
     TextView txtName;
     @BindView(R.id.userEmail)
     TextView txtEmail;
-
+*/
     private NavigationView navigationView;
     private DrawerLayout drawer;
     private View hView;
@@ -57,12 +69,18 @@ public class MainActivity extends AppCompatActivity {
     private boolean shouldLoadHomeFragOnBackPress = true;
     private Handler mHandler;
 
+    ApiService service;
+    TokenManager tokenManager;
+    Call<User> call;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        ButterKnife.bind(this);
 
         mHandler = new Handler();
 
@@ -94,7 +112,27 @@ public class MainActivity extends AppCompatActivity {
             loadHomeFragment();
         }
 
-        String username = getSharedPreferences("prefs", MODE_PRIVATE).getString("TOKEN", "");
+
+        tokenManager = TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE));
+        service = RetrofitBuilder.createServiceWithToken(ApiService.class,tokenManager);
+        getUserCredentials();
+    }
+
+    void getUserCredentials(){
+        call = service.getUser(tokenManager.getToken().getToken());
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                Log.w(TAG, "onResponse: " + response );
+                Toast.makeText(MainActivity.this, "Hello ujra " + response.body().getUsername(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                Log.w(TAG, "onFailure: " + t.getMessage() );
+            }
+        });
+
 
     }
 
@@ -289,5 +327,14 @@ public class MainActivity extends AppCompatActivity {
         editor.commit();
         finish();
         startActivity(new Intent(MainActivity.this, LoginActivity.class));
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(call != null){
+            call.cancel();
+            call = null;
+        }
     }
 }

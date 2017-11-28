@@ -2,10 +2,6 @@ package rft.unideb.unsolus.entities;
 
 import com.squareup.moshi.Json;
 
-/**
- * Created by Tibor on 2017. 11. 21..
- */
-
 public class AccessToken {
 
     @Json(name = "token")

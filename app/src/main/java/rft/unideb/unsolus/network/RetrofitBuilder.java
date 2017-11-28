@@ -13,10 +13,8 @@ import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.moshi.MoshiConverterFactory;
 import rft.unideb.unsolus.BuildConfig;
+import rft.unideb.unsolus.others.TokenManager;
 
-/**
- * Created by Tibor on 2017. 11. 21..
- */
 
 public class RetrofitBuilder {
 
@@ -57,6 +55,30 @@ public class RetrofitBuilder {
 
     public static <T> T createService(Class<T> service){
         return retrofit.create(service);
+    }
+
+    public static <T> T createServiceWithToken(Class<T> service, final TokenManager tokenManager){
+
+        OkHttpClient newClient = client.newBuilder().addInterceptor(new Interceptor() {
+            @Override
+            public Response intercept(Chain chain) throws IOException {
+
+                Request request = chain.request();
+
+                Request.Builder builder = request.newBuilder();
+
+                if (tokenManager.getToken().getToken() != null){
+                    builder.addHeader("Content-Type", "application/json")
+                            .addHeader("X-Requested-With", "XMLHttpRequest");
+                }
+
+                request = builder.build();
+                return chain.proceed(request);
+            }
+        }).build();
+
+        Retrofit newRetrofit = retrofit.newBuilder().client(newClient).build();
+        return newRetrofit.create(service);
     }
 
     public static Retrofit getRetrofit() {
