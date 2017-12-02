@@ -126,7 +126,6 @@ public class AccountSettingsActivity extends AppCompatActivity {
                         Log.w(TAG, "onResponse: " + response.body());
                         Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_LONG).show();
                         startActivity(new Intent(AccountSettingsActivity.this, MainActivity.class));
-                        finish();
                     }
                 }
 
@@ -156,7 +155,7 @@ public class AccountSettingsActivity extends AppCompatActivity {
 
 
         if (validate){
-            call = service.changePassword(userEmail, newPW, tokenManager.getToken().getToken());
+            call = service.changePassword(userEmail, newPW);
             call.enqueue(new Callback<User>() {
                 @Override
                 public void onResponse(Call<User> call, Response<User> response) {
@@ -164,7 +163,6 @@ public class AccountSettingsActivity extends AppCompatActivity {
                     if (response.isSuccessful()){
                         Toast.makeText(getApplicationContext(), "Password successfully changed!", Toast.LENGTH_LONG).show();
                         startActivity(new Intent(AccountSettingsActivity.this, MainActivity.class));
-                        finish();
                     }
                 }
 

@@ -30,8 +30,8 @@ public interface ApiService {
     @GET("api/users?token=")
     Call<User> getUsers(@Query("token") String token);
 
-    @PUT("api/user/password?token=")
+    @PUT("api/user/password")
     @FormUrlEncoded
-    Call<User> changePassword(@Field("Email") String email, @Field("Password") String password, @Query("token") String token);
+    Call<User> changePassword(@Field("Email") String email, @Field("Password") String password);
 
 }

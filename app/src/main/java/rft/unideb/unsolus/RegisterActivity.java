@@ -1,5 +1,6 @@
 package rft.unideb.unsolus;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -54,6 +55,7 @@ public class RegisterActivity extends AppCompatActivity {
     @OnClick(R.id.btn_signup)
     void register() {
         validate = true;
+        final ProgressDialog progressDialog = new ProgressDialog(RegisterActivity.this);
 
         String name = inputName.getText().toString();
         String email = inputEmail.getText().toString();
@@ -81,6 +83,8 @@ public class RegisterActivity extends AppCompatActivity {
                 public void onResponse(Call<AccessToken> call, Response<AccessToken> response) {
 
                     Log.w(TAG, "onResponse: " + response);
+                    progressDialog.setMessage("Please wait...");
+                    progressDialog.show();
 
                     if (response.isSuccessful()){
                         Log.w(TAG, "onResponse: " + response.body());

@@ -19,8 +19,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -37,15 +41,11 @@ import rft.unideb.unsolus.others.TokenManager;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
-//try
-  /*  @BindView(R.id.userName)
-    TextView txtName;
-    @BindView(R.id.userEmail)
-    TextView txtEmail;
-*/
+
     private NavigationView navigationView;
     private DrawerLayout drawer;
     private View hView;
+    private TextView txtName, txtMail;
     private Toolbar toolbar;
     private FloatingActionButton fab;
 
@@ -94,6 +94,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+       // hView = navigationView.getHeaderView(0);
+      //  txtName = (TextView) hView.findViewById(R.id.userName);
+      //  txtMail = (TextView) hView.findViewById(R.id.userEmail);
+
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -113,12 +117,18 @@ public class MainActivity extends AppCompatActivity {
             loadHomeFragment();
         }
 
+        loadNavHeader();
 
         tokenManager = TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE));
 
         service = RetrofitBuilder.createServiceWithToken(ApiService.class,tokenManager);
         getUserCredentials();
         getAllUser();
+    }
+
+    private void loadNavHeader() {
+      //  txtName.setText("Lecci");
+      //  txtMail.setText("Na pls");
     }
 
     void getUserCredentials(){
