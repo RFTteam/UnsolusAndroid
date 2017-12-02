@@ -405,7 +405,8 @@
     </string-array>
 
     <string name="title_activity_main">MainActivity</string>
-
+    <string name="info">*These informations are only required once, but later you can not change them.</string>
+    <string name="editplayerprofile">Setting your player profile</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="openDrawer">open_drawer</string>
@@ -435,7 +436,7 @@
 
 
     <string name="game_fragment">Hello blank GAMES fragment</string>
-    <string name="home_fragment">Hello blank HOME fragment</string>
+    <string name="home_fragment">Welcome! (home fragment)</string>
     <string name="players_fragment">Hello blank PLAYER fragment</string>
     <string name="teams_fragment">Hello blank TEAM fragment</string>
     <string name="title_activity_account_settings">Settings</string>

@@ -9,6 +9,10 @@ public class User {
     int UserID;
     String Username;
     String Email;
+    String DateOfBirth;
+    int Year;
+    String Country;
+    String Language;
 
     public int getUserID() {
         return UserID;
@@ -32,5 +36,37 @@ public class User {
 
     public void setEmail(String email) {
         Email = email;
+    }
+
+    public String getDateOfBirth() {
+        return DateOfBirth;
+    }
+
+    public void setDateOfBirth(String dateOfBirth) {
+        DateOfBirth = dateOfBirth;
+    }
+
+    public int getYear() {
+        return Year;
+    }
+
+    public void setYear(int year) {
+        Year = year;
+    }
+
+    public String getCountry() {
+        return Country;
+    }
+
+    public void setCountry(String country) {
+        Country = country;
+    }
+
+    public String getLanguage() {
+        return Language;
+    }
+
+    public void setLanguage(String language) {
+        Language = language;
     }
 }

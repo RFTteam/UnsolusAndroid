@@ -81,8 +81,16 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Just a flying button.. yet..", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Support Contact", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                Intent i = new Intent(Intent.ACTION_SEND);
+                i.setType("message/rfc822");
+                i.putExtra(Intent.EXTRA_EMAIL, new String[]{"unsolus.support@gmail.com"});
+                try{
+                    startActivity(Intent.createChooser(i, "Send Mail.."));
+                }catch (android.content.ActivityNotFoundException ex){
+                    Toast.makeText(getApplicationContext(), "No mail client sry :/", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -119,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 Log.w(TAG, "onResponse: " + response );
-                Toast.makeText(MainActivity.this, "Hello ujra " + response.body().getUsername(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MainActivity.this, "Welcome back " + response.body().getUsername(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -127,7 +135,6 @@ public class MainActivity extends AppCompatActivity {
                 Log.w(TAG, "onFailure: " + t.getMessage() );
             }
         });
-
     }
 
     void getAllUser(){
@@ -346,5 +353,6 @@ public class MainActivity extends AppCompatActivity {
             call.cancel();
             call = null;
         }
+        logout();
     }
 }
