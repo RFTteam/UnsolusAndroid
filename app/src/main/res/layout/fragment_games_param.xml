@@ -1,0 +1,159 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="rft.unideb.unsolus.fragments.GamesParamFragment"
+    android:background="@color/backgroundColor">
+
+    <ScrollView
+        android:id="@+id/scrollForGamesParamFragment"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp"
+            android:weightSum="1"
+            tools:layout_editor_absoluteY="8dp"
+            tools:layout_editor_absoluteX="8dp">
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp">
+
+                <TextView android:id="@+id/info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="12dp"
+                    android:textColor="@color/orange"
+                    android:gravity="left"
+                    android:text="@string/gamesInfo"
+                    />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@android:color/holo_orange_light">
+
+                <EditText
+                    android:id="@+id/input_playerName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/person_icon"
+                    android:drawablePadding="10dp"
+                    android:drawableStart="@drawable/person_icon"
+                    android:hint="*Ingame name"
+                    android:inputType="textCapWords" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@android:color/holo_orange_light">
+
+                <EditText
+                    android:id="@+id/input_rank"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/rank_icon"
+                    android:drawablePadding="10dp"
+                    android:drawableStart="@drawable/rank_icon"
+                    android:hint="Rank"
+                    android:inputType="textCapWords" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@android:color/holo_orange_light">
+
+                <EditText
+                    android:id="@+id/input_role"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/videogame_name"
+                    android:drawablePadding="10dp"
+                    android:drawableStart="@drawable/videogame_name"
+                    android:hint="Role"
+                    android:inputType="textCapWords" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@android:color/holo_orange_light">
+
+                <EditText
+                    android:id="@+id/input_region"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/country_icon"
+                    android:drawablePadding="10dp"
+                    android:drawableStart="@drawable/country_icon"
+                    android:hint="Region"
+                    android:inputType="textCapWords" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@android:color/holo_orange_light">
+
+                <EditText
+                    android:id="@+id/input_server"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/server_icon"
+                    android:drawablePadding="10dp"
+                    android:drawableStart="@drawable/server_icon"
+                    android:hint="Server"
+                    android:inputType="textCapWords" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@android:color/holo_orange_light">
+
+                <EditText
+                    android:id="@+id/input_motivation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/motivation_icon"
+                    android:drawablePadding="10dp"
+                    android:drawableStart="@drawable/motivation_icon"
+                    android:hint="Motivation"
+                    android:inputType="textCapWords" />
+            </android.support.design.widget.TextInputLayout>
+
+            <Button
+                android:id="@+id/btn_saveGame"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="24dp"
+                android:padding="12dp"
+                android:layout_gravity="center"
+                android:text="@string/save_settings"
+                android:background="@android:color/holo_orange_dark"/>
+        </LinearLayout>
+    </ScrollView>
+</FrameLayout>

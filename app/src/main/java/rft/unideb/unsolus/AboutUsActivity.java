@@ -29,7 +29,7 @@ public class AboutUsActivity extends AppCompatActivity {
 
                 Intent i = new Intent(Intent.ACTION_SEND);
                 i.setType("message/rfc822");
-                i.putExtra(Intent.EXTRA_EMAIL, new String[]{"unsolus.support@gmail.com"});
+                i.putExtra(Intent.EXTRA_EMAIL, new String[]{"unsolus.supp@gmail.com"});
                 try{
                     startActivity(Intent.createChooser(i, "Send Mail.."));
                 }catch (android.content.ActivityNotFoundException ex){
@@ -37,5 +37,11 @@ public class AboutUsActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

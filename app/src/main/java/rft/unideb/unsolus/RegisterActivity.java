@@ -71,7 +71,7 @@ public class RegisterActivity extends AppCompatActivity {
             validate = false;
         }
 
-        if (password.isEmpty()){
+        if (password.isEmpty() || password.length() < 2){
             inputPassword.setError("Enter your password (at least 2 char)");
             validate = false;
         }
@@ -89,9 +89,8 @@ public class RegisterActivity extends AppCompatActivity {
                     if (response.isSuccessful()){
                         Log.w(TAG, "onResponse: " + response.body());
                         tokenManager.saveToken(response.body());
-                        startActivity(new Intent(RegisterActivity.this, MainActivity.class));
-                        Toast.makeText(getApplicationContext(), "Account created, please finish your registration in account settings.", Toast.LENGTH_LONG).show();
-
+                        startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+                        Toast.makeText(getApplicationContext(), "Account created, finish your reg ", Toast.LENGTH_SHORT).show();
                         finish();
                     }else{
                         if(response.code() == 500){

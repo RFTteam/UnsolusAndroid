@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
                 Intent i = new Intent(Intent.ACTION_SEND);
                 i.setType("message/rfc822");
-                i.putExtra(Intent.EXTRA_EMAIL, new String[]{"unsolus.support@gmail.com"});
+                i.putExtra(Intent.EXTRA_EMAIL, new String[]{"unsolus.supp@gmail.com"});
                 try{
                     startActivity(Intent.createChooser(i, "Send Mail.."));
                 }catch (android.content.ActivityNotFoundException ex){
@@ -319,7 +319,7 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
         }
-        super.onBackPressed();
+       // super.onBackPressed();
     }
 
     @Override
@@ -365,4 +365,6 @@ public class MainActivity extends AppCompatActivity {
         }
         logout();
     }
+
+
 }

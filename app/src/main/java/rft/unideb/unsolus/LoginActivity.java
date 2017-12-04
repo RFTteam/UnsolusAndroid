@@ -114,4 +114,8 @@ public class LoginActivity extends AppCompatActivity{
     void toForgotPWActivity(){
         startActivity(new Intent(LoginActivity.this, Forgot_password_activity.class));
     }
+
+    @Override
+    public void onBackPressed() {
+    }
 }

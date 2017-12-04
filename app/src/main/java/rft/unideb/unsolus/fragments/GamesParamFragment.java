@@ -1,0 +1,81 @@
+package rft.unideb.unsolus.fragments;
+
+
+import android.app.Activity;
+import android.content.Context;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.content.pm.ActivityInfoCompat;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import rft.unideb.unsolus.R;
+
+public class GamesParamFragment extends Fragment {
+
+    private EditText playerName;
+    private EditText playerRole;
+    private EditText playerRank;
+    private EditText playerRegion;
+    private EditText playerServer;
+    private EditText playerMotivation;
+
+    GameInfoListener activityCommander;
+
+    public interface GameInfoListener{
+        public void gamerInfo(String name, String role, String rank, String region, String server, String motivation);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        Activity activity;
+
+        if (context instanceof Activity) {
+            activity = (Activity) context;
+            try {
+                activityCommander = (GameInfoListener) activity;
+            } catch (ClassCastException e) {
+                throw new ClassCastException(activity.toString());
+            }
+        }
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_games_param, container, false);
+
+        playerName = (EditText) view.findViewById(R.id.input_playerName);
+        playerRole = (EditText) view.findViewById(R.id.input_role);
+        playerRank = (EditText) view.findViewById(R.id.input_rank);
+        playerRegion = (EditText) view.findViewById(R.id.input_region);
+        playerServer = (EditText) view.findViewById(R.id.input_server);
+        playerMotivation = (EditText) view.findViewById(R.id.input_motivation);
+
+        final Button button = (Button) view.findViewById(R.id.btn_saveGame);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendInfoToForSave();
+            }
+        });
+
+        return view;
+    }
+
+    private void sendInfoToForSave() {
+        activityCommander.gamerInfo(playerName.getText().toString(),
+                                    playerRole.getText().toString(),
+                                    playerRank.getText().toString(),
+                                    playerRegion.getText().toString(),
+                                    playerServer.getText().toString(),
+                                    playerMotivation.getText().toString());
+    }
+
+}

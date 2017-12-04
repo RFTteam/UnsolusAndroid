@@ -1,13 +1,19 @@
 package rft.unideb.unsolus.network;
 
+import android.support.annotation.RequiresPermission;
+
+import java.util.Map;
+
 import retrofit2.Call;
 import retrofit2.http.Field;
+import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Query;
 import rft.unideb.unsolus.entities.AccessToken;
+import rft.unideb.unsolus.entities.Player;
 import rft.unideb.unsolus.entities.User;
 
 public interface ApiService {
@@ -34,4 +40,7 @@ public interface ApiService {
     @FormUrlEncoded
     Call<User> changePassword(@Field("Email") String email, @Field("Password") String password);
 
+    @POST("api/player?token=")
+    @FormUrlEncoded
+    Call<Player> uploadPlayer(@Field("Gamename") String gamename, @Field("Gamername") String gamername, @FieldMap Map<String, String> optionalFields, @Query("token") String token);
 }

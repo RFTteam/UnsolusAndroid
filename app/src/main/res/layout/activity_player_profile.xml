@@ -4,6 +4,59 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="rft.unideb.unsolus.PlayerProfileActivity">
+    tools:context="rft.unideb.unsolus.PlayerProfileActivity"
+    android:background="@color/backgroundColor">
 
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp"
+        android:weightSum="1"
+        tools:layout_editor_absoluteY="8dp"
+        tools:layout_editor_absoluteX="8dp">
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="24dp">
+
+        <TextView android:id="@+id/games_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="30dp"
+            android:textColor="@color/orange"
+            android:gravity="center"
+            android:text="@string/choseGames"
+            />
+        </android.support.design.widget.TextInputLayout>
+
+        <ExpandableListView android:id="@+id/setting_expendableLV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="24dp">
+
+            <TextView android:id="@+id/THE_line"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="30dp"
+                android:textColor="@color/orange"
+                android:gravity="center"
+                android:text="------------------------------------"
+                />
+        </android.support.design.widget.TextInputLayout>
+
+        <FrameLayout
+            android:id="@+id/fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>
