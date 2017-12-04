@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
 import java.util.ArrayList;
@@ -60,7 +61,7 @@ public class PlayerProfileActivity extends AppCompatActivity implements GamesPar
         expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
              @Override
              public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-                 Toast.makeText(getApplicationContext(), listDataChild.get(listDataHeader.get(groupPosition)).get(childPosition), Toast.LENGTH_SHORT).show();
+               //  Toast.makeText(getApplicationContext(), listDataChild.get(listDataHeader.get(groupPosition)).get(childPosition), Toast.LENGTH_SHORT).show();
                  actualGame = listDataChild.get(listDataHeader.get(groupPosition)).get(childPosition);
                  if (alreadyClicked)
                      changeFragment("replace");
@@ -70,6 +71,7 @@ public class PlayerProfileActivity extends AppCompatActivity implements GamesPar
                  return false;
              }
         });
+
     }
 
     private void prepareListData() {
@@ -103,7 +105,7 @@ public class PlayerProfileActivity extends AppCompatActivity implements GamesPar
                 if (response.isSuccessful())
                     Toast.makeText(getApplicationContext(), "Profile saved successfully", Toast.LENGTH_LONG).show();
                 else
-                    Toast.makeText(getApplicationContext(), "Can not create second profile", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Can not create second profile for the same game", Toast.LENGTH_LONG).show();
             }
 
             @Override

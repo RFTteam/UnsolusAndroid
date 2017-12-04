@@ -406,13 +406,14 @@
 
     <string name="title_activity_main">MainActivity</string>
     <string name="info">*These informations are only required once, but later you can not change them.</string>
-    <string name="gamesInfo">The fields with * are necessary.</string>
+    <string name="gamesInfo">The fields with * are necessary. \n Only one profile can be for the same game. \n Please be carefully when filling up the fields. </string>
     <string name="editplayerprofile">Setting your player profile</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="openDrawer">open_drawer</string>
     <string name="closeDrawer">close_drawer</string>
     <string name="choseGames">Choose your games</string>
+    <string name="deleteExistingProfile">Delete existing profile</string>
 
     <string name="action_logout">Logout</string>
 

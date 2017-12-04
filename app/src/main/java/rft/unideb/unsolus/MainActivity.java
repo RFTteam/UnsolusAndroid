@@ -353,7 +353,7 @@ public class MainActivity extends AppCompatActivity {
         editor.clear();
         editor.commit();
         finish();
-        startActivity(new Intent(MainActivity.this, LoginActivity.class));
+     //   startActivity(new Intent(MainActivity.this, LoginActivity.class));
     }
 
     @Override

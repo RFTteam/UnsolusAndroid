@@ -23,22 +23,6 @@
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp">
-
-                <TextView android:id="@+id/info"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="12dp"
-                    android:textColor="@color/orange"
-                    android:gravity="left"
-                    android:text="@string/gamesInfo"
-                    />
-
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:layout_marginTop="8dp"
                 android:background="@android:color/holo_orange_light">
@@ -153,6 +137,16 @@
                 android:padding="12dp"
                 android:layout_gravity="center"
                 android:text="@string/save_settings"
+                android:background="@android:color/holo_orange_dark"/>
+
+            <Button
+                android:id="@+id/btn_deleteProfil"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:padding="12dp"
+                android:layout_gravity="center"
+                android:text="@string/deleteExistingProfile"
                 android:background="@android:color/holo_orange_dark"/>
         </LinearLayout>
     </ScrollView>
