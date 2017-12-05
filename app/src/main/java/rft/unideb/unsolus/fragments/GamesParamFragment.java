@@ -29,6 +29,8 @@ public class GamesParamFragment extends Fragment {
 
     public interface GameInfoListener{
         public void gamerInfo(String name, String role, String rank, String region, String server, String motivation);
+        public void deleteGamer();
+        public void updateGamerInfo(String name, String role, String rank, String region, String server, String motivation);
     }
 
     @Override
@@ -58,18 +60,35 @@ public class GamesParamFragment extends Fragment {
         playerServer = (EditText) view.findViewById(R.id.input_server);
         playerMotivation = (EditText) view.findViewById(R.id.input_motivation);
 
-        final Button button = (Button) view.findViewById(R.id.btn_saveGame);
-        button.setOnClickListener(new View.OnClickListener() {
+        final Button saveButton = (Button) view.findViewById(R.id.btn_saveGame);
+        final Button updateButton = (Button) view.findViewById(R.id.btn_updateProfil);
+        final Button deleteButton = (Button) view.findViewById(R.id.btn_deleteProfil);
+
+        saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendInfoToForSave();
+                sendInfo();
+            }
+        });
+
+        updateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updatePlayer();
+            }
+        });
+
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deletePlayer();
             }
         });
 
         return view;
     }
 
-    private void sendInfoToForSave() {
+    private void sendInfo() {
         activityCommander.gamerInfo(playerName.getText().toString(),
                                     playerRole.getText().toString(),
                                     playerRank.getText().toString(),
@@ -78,4 +97,16 @@ public class GamesParamFragment extends Fragment {
                                     playerMotivation.getText().toString());
     }
 
+    private void deletePlayer(){
+        activityCommander.deleteGamer();
+    }
+
+    private void updatePlayer(){
+        activityCommander.updateGamerInfo(  playerName.getText().toString(),
+                                            playerRole.getText().toString(),
+                                            playerRank.getText().toString(),
+                                            playerRegion.getText().toString(),
+                                            playerServer.getText().toString(),
+                                            playerMotivation.getText().toString());
+    }
 }

@@ -1,16 +1,17 @@
 package rft.unideb.unsolus.network;
 
-import android.support.annotation.RequiresPermission;
-
+import java.util.List;
 import java.util.Map;
 
 import retrofit2.Call;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 import rft.unideb.unsolus.entities.AccessToken;
 import rft.unideb.unsolus.entities.Player;
@@ -43,4 +44,15 @@ public interface ApiService {
     @POST("api/player?token=")
     @FormUrlEncoded
     Call<Player> uploadPlayer(@Field("Gamename") String gamename, @Field("Gamername") String gamername, @FieldMap Map<String, String> optionalFields, @Query("token") String token);
+
+    @PUT("api/player/{id}?token=")
+    @FormUrlEncoded
+    Call<Player> updatePlayer(@Path("id") int id,@Field("Gamename") String gamename, @Field("Gamername") String gamername, @FieldMap Map<String, String> optionalFields, @Query("token") String token);
+
+    @DELETE("api/player/{id}?token=")
+    Call<Player> deletePlayer(@Path("id") int id, @Query("token") String token);
+
+    @GET("api/myaccounts?token=")
+    Call<List<Player>> getMyPlayers(@Query("token") String token);
+
 }

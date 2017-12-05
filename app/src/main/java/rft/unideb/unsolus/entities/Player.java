@@ -1,15 +1,25 @@
 package rft.unideb.unsolus.entities;
 
 
+import com.squareup.moshi.Json;
+
 public class Player {
 
+    @Json(name = "GamerName")
     String GamerName;
+    @Json(name = "Rank")
     String Rank;
+    @Json(name = "Role")
     String Role;
+    @Json(name = "Region")
     String Region;
+    @Json(name = "Server")
     String Server;
+    @Json(name = "Motivation")
     String Motivation;
+    @Json(name = "GamerId")
     int GamerId;
+    @Json(name = "game")
     String game;
 
     public String getGamerName() {
