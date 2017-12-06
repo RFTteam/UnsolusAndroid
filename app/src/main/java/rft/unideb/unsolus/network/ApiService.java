@@ -35,7 +35,7 @@ public interface ApiService {
     Call<User> getUser(@Query("token") String token);
 
     @GET("api/users?token=")
-    Call<User> getUsers(@Query("token") String token);
+    Call<List<User>> getUsers(@Query("token") String token);
 
     @PUT("api/user/password")
     @FormUrlEncoded

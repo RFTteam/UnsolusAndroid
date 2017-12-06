@@ -22,9 +22,8 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
+import java.util.List;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -38,7 +37,7 @@ import rft.unideb.unsolus.network.ApiService;
 import rft.unideb.unsolus.network.RetrofitBuilder;
 import rft.unideb.unsolus.others.TokenManager;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
 
     private static final String TAG = "MainActivity";
 
@@ -62,9 +61,13 @@ public class MainActivity extends AppCompatActivity {
     private boolean shouldLoadHomeFragOnBackPress = true;
     private Handler mHandler;
 
+
     ApiService service;
     TokenManager tokenManager;
     Call<User> call;
+    Call<List<User>> callforallUser;
+    FragmentTransaction fragmentTransaction;
+    Fragment fragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,10 +97,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-       // hView = navigationView.getHeaderView(0);
-      //  txtName = (TextView) hView.findViewById(R.id.userName);
-      //  txtMail = (TextView) hView.findViewById(R.id.userEmail);
-
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -106,6 +105,13 @@ public class MainActivity extends AppCompatActivity {
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         hView = navigationView.getHeaderView(0);
+        txtName = (TextView) hView.findViewById(R.id.userName);
+        txtMail = (TextView) hView.findViewById(R.id.userEmail);
+
+        tokenManager = TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE));
+        service = RetrofitBuilder.createServiceWithToken(ApiService.class,tokenManager);
+        getUserCredentials();
+        getAllUser();
 
         activityTitles = getResources().getStringArray(R.array.nav_item_activity_titles);
 
@@ -116,115 +122,6 @@ public class MainActivity extends AppCompatActivity {
             CURRENT_TAG = TAG_Home;
             loadHomeFragment();
         }
-
-        loadNavHeader();
-
-        tokenManager = TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE));
-
-        service = RetrofitBuilder.createServiceWithToken(ApiService.class,tokenManager);
-        getUserCredentials();
-        getAllUser();
-    }
-
-    private void loadNavHeader() {
-      //  txtName.setText("Lecci");
-      //  txtMail.setText("Na pls");
-    }
-
-    void getUserCredentials(){
-        call = service.getUser(tokenManager.getToken().getToken());
-        call.enqueue(new Callback<User>() {
-            @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-                Log.w(TAG, "onResponse: " + response );
-                //Toast.makeText(MainActivity.this, "Welcome back " + response.body().getUsername(), Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onFailure(Call<User> call, Throwable t) {
-                Log.w(TAG, "onFailure: " + t.getMessage() );
-            }
-        });
-    }
-
-    void getAllUser(){
-        call = service.getUsers(tokenManager.getToken().getToken());
-            call.enqueue(new Callback<User>() {
-                @Override
-                public void onResponse(Call<User> call, Response<User> response) {
-                    Log.w(TAG, "onResponse: " + response );
-                }
-
-                @Override
-                public void onFailure(Call<User> call, Throwable t) {
-                    Log.w(TAG, "onFailure: " + t.getMessage() );
-                }
-            });
-
-    }
-
-    private void loadHomeFragment() {
-        selectNavMenu();
-        setToolbarTitle();
-        if (getSupportFragmentManager().findFragmentByTag(CURRENT_TAG) != null){
-            drawer.closeDrawers();
-
-            toggleFab();
-            return;
-        }
-
-        Runnable mPendingRunnable = new Runnable() {
-            @Override
-            public void run() {
-                Fragment fragment = getHomeFragment();
-                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.setCustomAnimations(android.R.anim.fade_in,android.R.anim.fade_out);
-                fragmentTransaction.replace(R.id.frame, fragment, CURRENT_TAG);
-                fragmentTransaction.commitAllowingStateLoss();
-
-            }
-        };
-
-        if (mPendingRunnable != null) {
-            mHandler.post(mPendingRunnable);
-        }
-
-        toggleFab();
-
-        drawer.closeDrawers();
-
-        invalidateOptionsMenu();
-
-    }
-
-    private Fragment getHomeFragment() {
-        switch (navItemIndex){
-            case 0:
-                HomeFragment homeFragment = new HomeFragment();
-                return homeFragment;
-            case 1:
-                GamesFragment gameFragment = new GamesFragment();
-                return gameFragment;
-            case 2:
-                PlayersFragment playersFragment = new PlayersFragment();
-                return playersFragment;
-            case 3:
-                TeamsFragment teamsFragment = new TeamsFragment();
-                return teamsFragment;
-            default:
-                return new HomeFragment();
-        }
-    }
-
-    private void toggleFab() {
-        if (navItemIndex == 0)
-            fab.show();
-        else
-            fab.hide();
-    }
-
-    private void setToolbarTitle() {
-        getSupportActionBar().setTitle(activityTitles[navItemIndex]);
     }
 
     private void selectNavMenu() {
@@ -266,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
                         return true;
                     case R.id.nav_logout:
                         Toast.makeText(getApplicationContext(), "Logout user!", Toast.LENGTH_LONG).show();
-                       logout();
+                        logout();
                     default:
                         navItemIndex=0;
                 }
@@ -305,6 +202,103 @@ public class MainActivity extends AppCompatActivity {
         actionBarDrawerToggle.syncState();
     }
 
+    private void loadHomeFragment() {
+        selectNavMenu();
+        setToolbarTitle();
+        if (getSupportFragmentManager().findFragmentByTag(CURRENT_TAG) != null){
+            drawer.closeDrawers();
+
+            toggleFab();
+            return;
+        }
+
+        Runnable mPendingRunnable = new Runnable() {
+            @Override
+            public void run() {
+                fragment = getHomeFragment();
+                fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.setCustomAnimations(android.R.anim.fade_in,android.R.anim.fade_out);
+                fragmentTransaction.replace(R.id.frame, fragment, CURRENT_TAG);
+                fragmentTransaction.commitAllowingStateLoss();
+
+            }
+        };
+
+        if (mPendingRunnable != null) {
+            mHandler.post(mPendingRunnable);
+        }
+
+        toggleFab();
+
+        drawer.closeDrawers();
+
+        invalidateOptionsMenu();
+
+    }
+
+    private Fragment getHomeFragment() {
+        switch (navItemIndex){
+            case 0:
+                HomeFragment homeFragment = new HomeFragment();
+                return homeFragment;
+            case 1:
+                GamesFragment gameFragment = new GamesFragment();
+                return gameFragment;
+            case 2:
+                PlayersFragment playersFragment = new PlayersFragment();
+                return playersFragment;
+            case 3:
+                TeamsFragment teamsFragment = new TeamsFragment();
+                return teamsFragment;
+            default:
+                return new HomeFragment();
+        }
+    }
+
+    void getUserCredentials(){
+        call = service.getUser(tokenManager.getToken().getToken());
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                Log.w(TAG, "onResponse: " + response );
+                txtName.setText(response.body().getUsername());
+                txtMail.setText(response.body().getEmail());
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                Log.w(TAG, "onFailure: " + t.getMessage() );
+            }
+        });
+    }
+
+    void getAllUser(){
+        callforallUser = service.getUsers(tokenManager.getToken().getToken());
+        callforallUser.enqueue(new Callback<List<User>>() {
+            @Override
+            public void onResponse(Call<List<User>> call, Response<List<User>> response) {
+                Log.w(TAG, "onResponse: " + response );
+            }
+
+            @Override
+            public void onFailure(Call<List<User>> call, Throwable t) {
+                Log.w(TAG, "onFailure: " + t.getMessage() );
+            }
+        });
+
+    }
+
+    private void toggleFab() {
+        if (navItemIndex == 0)
+            fab.show();
+        else
+            fab.hide();
+    }
+
+    private void setToolbarTitle() {
+        getSupportActionBar().setTitle(activityTitles[navItemIndex]);
+    }
+
     @Override
     public void onBackPressed() {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -319,12 +313,10 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
         }
-       // super.onBackPressed();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         if (navItemIndex == 0){
             getMenuInflater().inflate(R.menu.main, menu);
         }
@@ -333,9 +325,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         if (id == R.id.action_logout){
@@ -352,8 +341,8 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = preferences.edit();
         editor.clear();
         editor.commit();
+        startActivity(new Intent(MainActivity.this, LoginActivity.class));
         finish();
-     //   startActivity(new Intent(MainActivity.this, LoginActivity.class));
     }
 
     @Override
@@ -366,5 +355,10 @@ public class MainActivity extends AppCompatActivity {
         logout();
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        logout();
+    }
 
 }

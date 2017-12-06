@@ -5,12 +5,12 @@
     android:background="@color/backgroundColor"
     tools:context="rft.unideb.unsolus.fragments.PlayersFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <TextView android:id="@+id/players_alap"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:textSize="24dp"
         android:textColor="@color/orange"
         android:text="@string/players_fragment" />
+
 
 </FrameLayout>

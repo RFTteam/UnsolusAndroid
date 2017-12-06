@@ -445,7 +445,8 @@
 
 
     <string name="game_fragment">Hello blank GAMES fragment</string>
-    <string name="home_fragment">Welcome! (home fragment)</string>
+    <string name="home_fragment">Welcome! \n \n
+        What are you looking for? \n </string>
     <string name="players_fragment">Hello blank PLAYER fragment</string>
     <string name="teams_fragment">Hello blank TEAM fragment</string>
     <string name="title_activity_account_settings">Settings</string>

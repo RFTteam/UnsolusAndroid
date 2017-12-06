@@ -1,17 +1,155 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="rft.unideb.unsolus.fragments.HomeFragment"
     android:background="@color/backgroundColor">
 
-    <!-- TODO: Update blank fragment layout -->
-
-    <TextView   android:id="@+id/testeset"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textSize="24dp"
-        android:textColor="@color/orange"
-        android:text="@string/home_fragment" />
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp"
+            android:weightSum="1"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="8dp">
+
+            <TextView
+                android:id="@+id/welcome"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/home_fragment"
+                android:textColor="@color/orange"
+                android:textSize="24dp" />
+
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="24dp"
+                    android:paddingRight="24dp"
+                    android:weightSum="1"
+                    tools:layout_editor_absoluteX="8dp"
+                    tools:layout_editor_absoluteY="8dp">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/header_Games"
+                    android:layout_width="match_parent"
+                    android:layout_height="125dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/side_nav_bar" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="24dp"
+                    android:paddingRight="24dp"
+                    android:weightSum="1"
+                    tools:layout_editor_absoluteX="8dp"
+                    tools:layout_editor_absoluteY="8dp">
+
+                    <TextView
+                        android:id="@+id/tab_name_game"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="GAMES "
+                        android:layout_marginTop="50dp"
+                        android:layout_gravity="left"
+                        android:textStyle="bold"
+                        android:textSize="24dp"
+                        android:textColor="@color/orange"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+                </LinearLayout>
+                    </RelativeLayout>
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/header_Players"
+                    android:layout_width="match_parent"
+                    android:layout_height="125dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/side_nav_bar" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="24dp"
+                    android:paddingRight="12dp"
+                    android:weightSum="1"
+                    tools:layout_editor_absoluteX="8dp"
+                    tools:layout_editor_absoluteY="8dp">
+
+                    <TextView
+                        android:id="@+id/tab_name_player"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:layout_marginTop="50dp"
+                        android:text="PLAYERS"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                        android:textSize="24dp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+                </RelativeLayout>
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/header_Teams"
+                    android:layout_width="match_parent"
+                    android:layout_height="125dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/side_nav_bar" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="24dp"
+                    android:paddingRight="24dp"
+                    android:weightSum="1"
+                    tools:layout_editor_absoluteX="8dp"
+                    tools:layout_editor_absoluteY="8dp">
+
+                    <TextView
+                        android:id="@+id/tab_name_teams"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="TEAMS"
+                        android:layout_marginTop="50dp"
+                        android:layout_gravity="left"
+                        android:textStyle="bold"
+                        android:textSize="24dp"
+                        android:textColor="@color/orange"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+                </LinearLayout>
+        </RelativeLayout>
+                </LinearLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
 
 </FrameLayout>
