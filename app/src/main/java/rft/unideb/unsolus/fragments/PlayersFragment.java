@@ -17,14 +17,7 @@ public class PlayersFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view =inflater.inflate(R.layout.fragment_players, container, false);
-
-        first = (TextView) view.findViewById(R.id.players_alap);
-
         return view;
-    }
-
-    public void setText(String param){
-        first.setText(param);
     }
 
 }

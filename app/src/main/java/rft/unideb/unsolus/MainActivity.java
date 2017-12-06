@@ -35,9 +35,10 @@ import rft.unideb.unsolus.fragments.PlayersFragment;
 import rft.unideb.unsolus.fragments.TeamsFragment;
 import rft.unideb.unsolus.network.ApiService;
 import rft.unideb.unsolus.network.RetrofitBuilder;
+import rft.unideb.unsolus.others.FragmentChangeListener;
 import rft.unideb.unsolus.others.TokenManager;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity implements FragmentChangeListener{
 
     private static final String TAG = "MainActivity";
 
@@ -61,13 +62,10 @@ public class MainActivity extends AppCompatActivity{
     private boolean shouldLoadHomeFragOnBackPress = true;
     private Handler mHandler;
 
-
     ApiService service;
     TokenManager tokenManager;
     Call<User> call;
     Call<List<User>> callforallUser;
-    FragmentTransaction fragmentTransaction;
-    Fragment fragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -215,12 +213,7 @@ public class MainActivity extends AppCompatActivity{
         Runnable mPendingRunnable = new Runnable() {
             @Override
             public void run() {
-                fragment = getHomeFragment();
-                fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.setCustomAnimations(android.R.anim.fade_in,android.R.anim.fade_out);
-                fragmentTransaction.replace(R.id.frame, fragment, CURRENT_TAG);
-                fragmentTransaction.commitAllowingStateLoss();
-
+                replaceFragment(getHomeFragment(),CURRENT_TAG);
             }
         };
 
@@ -361,4 +354,11 @@ public class MainActivity extends AppCompatActivity{
         logout();
     }
 
+    @Override
+    public void replaceFragment(Fragment fragment, String current_tag) {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.setCustomAnimations(android.R.anim.fade_in,android.R.anim.fade_out);
+        fragmentTransaction.replace(R.id.frame, fragment, current_tag);
+        fragmentTransaction.commit();
+    }
 }

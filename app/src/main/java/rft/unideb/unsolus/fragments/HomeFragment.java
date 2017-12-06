@@ -19,6 +19,7 @@ import rft.unideb.unsolus.R;
 import rft.unideb.unsolus.entities.User;
 import rft.unideb.unsolus.network.ApiService;
 import rft.unideb.unsolus.network.RetrofitBuilder;
+import rft.unideb.unsolus.others.FragmentChangeListener;
 import rft.unideb.unsolus.others.TokenManager;
 
 
@@ -40,25 +41,33 @@ public class HomeFragment extends Fragment {
         games.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("Kattintottam");
+                Fragment fragment = new GamesFragment();
+                FragmentChangeListener fragmentChangeListener = (FragmentChangeListener)getActivity();
+                fragmentChangeListener.replaceFragment(fragment, "games");
             }
         });
 
         players.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("Kattintottam");
+                Fragment fragment = new PlayersFragment();
+                FragmentChangeListener fragmentChangeListener = (FragmentChangeListener)getActivity();
+                fragmentChangeListener.replaceFragment(fragment, "players");
             }
         });
 
         teams.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("Kattintottam");
+                Fragment fragment = new TeamsFragment();
+                FragmentChangeListener fragmentChangeListener = (FragmentChangeListener)getActivity();
+                fragmentChangeListener.replaceFragment(fragment, "teams");
             }
         });
 
         return view;
     }
+
+
 
 }
