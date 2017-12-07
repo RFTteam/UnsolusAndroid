@@ -14,6 +14,7 @@ import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 import rft.unideb.unsolus.entities.AccessToken;
+import rft.unideb.unsolus.entities.Game;
 import rft.unideb.unsolus.entities.Player;
 import rft.unideb.unsolus.entities.User;
 
@@ -55,4 +56,9 @@ public interface ApiService {
     @GET("api/myaccounts?token=")
     Call<List<Player>> getMyPlayers(@Query("token") String token);
 
+    @GET("api/games?token=")
+    Call<List<Game>> getGameNames(@Query("token") String token);
+
+    @GET("api/players/{game}?token=")
+    Call<List<Player>> getPlayersPerGame(@Path("game") String game, @Query("token") String token);
 }

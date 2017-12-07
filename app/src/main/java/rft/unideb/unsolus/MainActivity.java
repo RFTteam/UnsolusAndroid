@@ -349,12 +349,6 @@ public class MainActivity extends AppCompatActivity implements FragmentChangeLis
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
-        logout();
-    }
-
-    @Override
     public void replaceFragment(Fragment fragment, String current_tag) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.setCustomAnimations(android.R.anim.fade_in,android.R.anim.fade_out);

@@ -205,7 +205,7 @@ public class PlayerProfileActivity extends AppCompatActivity implements GamesPar
             });
         }
     }
-
+    //TODO: FIX 2 CLICK
     void getTheID(){
         call2 = service.getMyPlayers(tokenManager.getToken().getToken());
         call2.enqueue(new Callback<List<Player>>() {
