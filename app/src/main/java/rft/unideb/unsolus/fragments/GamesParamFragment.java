@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -23,7 +25,7 @@ public class GamesParamFragment extends Fragment {
     private EditText playerRank;
     private EditText playerRegion;
     private EditText playerServer;
-    private EditText playerMotivation;
+    private Spinner playerMotivation;
 
     GameInfoListener activityCommander;
 
@@ -58,7 +60,7 @@ public class GamesParamFragment extends Fragment {
         playerRank = (EditText) view.findViewById(R.id.input_rank);
         playerRegion = (EditText) view.findViewById(R.id.input_region);
         playerServer = (EditText) view.findViewById(R.id.input_server);
-        playerMotivation = (EditText) view.findViewById(R.id.input_motivation);
+        playerMotivation = (Spinner) view.findViewById(R.id.input_motivation_spinner);
 
         final Button saveButton = (Button) view.findViewById(R.id.btn_saveGame);
         final Button updateButton = (Button) view.findViewById(R.id.btn_updateProfil);
@@ -94,7 +96,7 @@ public class GamesParamFragment extends Fragment {
                                     playerRank.getText().toString(),
                                     playerRegion.getText().toString(),
                                     playerServer.getText().toString(),
-                                    playerMotivation.getText().toString());
+                                    playerMotivation.getSelectedItem().toString());
     }
 
     private void deletePlayer(){
@@ -107,6 +109,6 @@ public class GamesParamFragment extends Fragment {
                                             playerRank.getText().toString(),
                                             playerRegion.getText().toString(),
                                             playerServer.getText().toString(),
-                                            playerMotivation.getText().toString());
+                                            playerMotivation.getSelectedItem().toString());
     }
 }

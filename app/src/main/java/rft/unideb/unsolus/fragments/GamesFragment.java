@@ -62,10 +62,10 @@ public class GamesFragment extends Fragment {
         listDataHeader = new ArrayList<String>();
         listDataChild = new HashMap<String, List<String>>();
 
-        listDataHeader.add("Few information.");
+        listDataHeader.add("\t Few information.");
 
         final List<String> db = new ArrayList<String>();
-
+        variant = 1;
         call = service.getGameNames(tokenManager.getToken().getToken());
         call.enqueue(new Callback<List<Game>>() {
             @Override
@@ -97,9 +97,9 @@ public class GamesFragment extends Fragment {
                             }
                         });
                     }
-                    db.add("Number of current available games: " + counter + "\n/ Under extension /");
-                    db.add("You can't communicate with other players directly. / Yet... /");
-                    db.add("These names are their ingame nicknames.");
+                    db.add("\t \t Number of current available games: " + counter + "\n/ Under extension /");
+                    db.add("\t \t You can't communicate with other players directly. / Yet... /");
+                    db.add("\t \t These names are their ingame nicknames.");
                     listDataChild.put(listDataHeader.get(0), db);
                 }
             }
@@ -109,7 +109,5 @@ public class GamesFragment extends Fragment {
                 Log.w(TAG, "onFailure: " + t.getMessage() );
             }
         });
-
-
     }
 }

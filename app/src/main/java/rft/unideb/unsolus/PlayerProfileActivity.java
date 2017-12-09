@@ -26,7 +26,7 @@ import rft.unideb.unsolus.network.ApiService;
 import rft.unideb.unsolus.network.RetrofitBuilder;
 import rft.unideb.unsolus.others.ExpandableListAdapter;
 import rft.unideb.unsolus.others.TokenManager;
-
+//TODO: SPINNER INSTEAD OF TEXTFIELD
 public class PlayerProfileActivity extends AppCompatActivity implements GamesParamFragment.GameInfoListener{
 
     private static final String TAG = "PlayerProfileActivity";
@@ -84,8 +84,8 @@ public class PlayerProfileActivity extends AppCompatActivity implements GamesPar
                 AlertDialog alertDialog = new AlertDialog.Builder(PlayerProfileActivity.this).create();
                 alertDialog.setTitle("Information");
                 alertDialog.setMessage("The fields with * are necessary. \n" +
-                        "Only one profile can be for the same game. \n" +
-                        "You can update your player profile, but the empty fields will be null, does not matter you filled up earlier. \n" +
+                        "Only one player per game. \n" +
+                        "You can update your player profile, but the empty fields will be empty, does not matter you filled up earlier. \n" +
                         "Please fill out the fields correctly.");
                 alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                         new DialogInterface.OnClickListener() {

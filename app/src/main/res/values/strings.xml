@@ -21,7 +21,6 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."</string>
 
-    <!-- these just temporary / for spinners in reg-->
     <string-array name="country_arrays">
         <item>Afghanistan</item>
         <item>Albania</item>
@@ -403,6 +402,41 @@
         <item>Yoruba</item>
         <item>Zulu</item>
     </string-array>
+    <string-array name="lol_ranks">
+        <item>Bronz</item>
+        <item>Silver</item>
+        <item>Gold</item>
+        <item>Platinum</item>
+        <item>Diamond</item>
+        <item>Master</item>
+        <item>Challenger</item>
+    </string-array>
+    <string-array name="lol_servers">
+        <item>North America</item>
+        <item>EU Nordic / East</item>
+        <item>EU West</item>
+        <item>Latin America South</item>
+        <item>Latin America North</item>
+        <item>Brazil</item>
+        <item>Turkey</item>
+        <item>Oceania</item>
+    </string-array>
+    <string-array name="lol_roles">
+        <item>AD Carry</item>
+        <item>Support</item>
+        <item>Mid</item>
+        <item>Top</item>
+        <item>Jungler</item>
+    </string-array>
+    <string-array name="motivations">
+        <item>Play for Fun</item>
+        <item>Become Pro</item>
+        <item>Amateur</item>
+    </string-array>
+    <string-array name="firtnite_servers">
+        <item>American</item>
+        <item>European</item>
+    </string-array>
 
     <string name="title_activity_main">MainActivity</string>
     <string name="info">*These informations are only required once, but later you can not change them.</string>
@@ -467,8 +501,5 @@
             "-Tibor Czirják (Android Frontend)\n"
     </string>
     <string name="action_settings">Settings</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

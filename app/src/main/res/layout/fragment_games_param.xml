@@ -116,8 +116,9 @@
                 android:layout_marginBottom="8dp"
                 android:layout_marginTop="8dp"
                 android:background="@android:color/holo_orange_light">
+>
 
-                <EditText
+                <TextView
                     android:id="@+id/input_motivation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -125,8 +126,16 @@
                     android:drawablePadding="10dp"
                     android:drawableStart="@drawable/motivation_icon"
                     android:hint="Motivation"
-                    android:inputType="textCapWords" />
+                    android:clickable="false"
+                    android:text="Choose your Country" />
 
+                <Spinner
+                    android:id="@+id/input_motivation_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textFilter"
+                    android:entries="@array/motivations"
+                    android:hint="Motivation"/>
             </android.support.design.widget.TextInputLayout>
 
             <LinearLayout
