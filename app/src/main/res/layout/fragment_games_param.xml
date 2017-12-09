@@ -45,7 +45,7 @@
                 android:layout_marginTop="8dp"
                 android:background="@android:color/holo_orange_light">
 
-                <EditText
+                <TextView
                     android:id="@+id/input_rank"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -53,7 +53,13 @@
                     android:drawablePadding="10dp"
                     android:drawableStart="@drawable/rank_icon"
                     android:hint="Rank"
-                    android:inputType="textCapWords" />
+                    android:clickable="false"/>
+                <Spinner
+                    android:id="@+id/input_rank_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textFilter"
+                    android:hint="Rank"/>
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -63,15 +69,21 @@
                 android:layout_marginTop="8dp"
                 android:background="@android:color/holo_orange_light">
 
-                <EditText
+                <TextView
                     android:id="@+id/input_role"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/videogame_name"
                     android:drawablePadding="10dp"
                     android:drawableStart="@drawable/videogame_name"
-                    android:hint="Role"
-                    android:inputType="textCapWords" />
+                    android:clickable="false"
+                    android:hint="Role" />
+                <Spinner
+                    android:id="@+id/input_role_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textFilter"
+                    android:hint="Role"/>
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -81,15 +93,21 @@
                 android:layout_marginTop="8dp"
                 android:background="@android:color/holo_orange_light">
 
-                <EditText
+                <TextView
                     android:id="@+id/input_region"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/country_icon"
                     android:drawablePadding="10dp"
                     android:drawableStart="@drawable/country_icon"
-                    android:hint="Region"
-                    android:inputType="textCapWords" />
+                    android:clickable="false"
+                    android:hint="Server" />
+                <Spinner
+                    android:id="@+id/input_server_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textFilter"
+                    android:hint="Style"/>
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -99,15 +117,22 @@
                 android:layout_marginTop="8dp"
                 android:background="@android:color/holo_orange_light">
 
-                <EditText
+                <TextView
                     android:id="@+id/input_server"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/server_icon"
+                    android:drawableLeft="@drawable/icon_style"
                     android:drawablePadding="10dp"
-                    android:drawableStart="@drawable/server_icon"
-                    android:hint="Server"
-                    android:inputType="textCapWords" />
+                    android:drawableStart="@drawable/icon_style"
+                    android:hint="Game Style"
+                    android:clickable="false"/>
+                <Spinner
+                    android:id="@+id/input_style_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textFilter"
+                    android:entries="@array/styles"
+                    android:hint="Style"/>
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -126,8 +151,7 @@
                     android:drawablePadding="10dp"
                     android:drawableStart="@drawable/motivation_icon"
                     android:hint="Motivation"
-                    android:clickable="false"
-                    android:text="Choose your Country" />
+                    android:clickable="false" />
 
                 <Spinner
                     android:id="@+id/input_motivation_spinner"

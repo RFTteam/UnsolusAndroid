@@ -9,10 +9,15 @@ import android.support.v4.content.pm.ActivityInfoCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,10 +26,10 @@ import rft.unideb.unsolus.R;
 public class GamesParamFragment extends Fragment {
 
     private EditText playerName;
-    private EditText playerRole;
-    private EditText playerRank;
-    private EditText playerRegion;
-    private EditText playerServer;
+    private Spinner playerRole;
+    private Spinner playerRank;
+    private Spinner playerRegion;
+    private Spinner playerStyle;
     private Spinner playerMotivation;
 
     GameInfoListener activityCommander;
@@ -55,12 +60,54 @@ public class GamesParamFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_games_param, container, false);
 
+        String actGame = getArguments().getString("game");
+
+        List<String> regionSpinner = new ArrayList<String>();
+        List<String> roleSpinner = new ArrayList<String>();
+        List<String> rankSpinner = new ArrayList<String>();
+
+        if (actGame.equals("LoL")){
+
+            regionSpinner.add("EUNE"); regionSpinner.add("RU"); regionSpinner.add("NA"); regionSpinner.add("EUW"); regionSpinner.add("LAS"); regionSpinner.add("LAN"); regionSpinner.add("BR");
+            regionSpinner.add("TR");regionSpinner.add("OCE");regionSpinner.add("JP");regionSpinner.add("SEA");regionSpinner.add("SG/MY");regionSpinner.add("PH");regionSpinner.add("ID");
+            regionSpinner.add("TH");regionSpinner.add("TW");regionSpinner.add("VN");regionSpinner.add("KR");regionSpinner.add("PBE");regionSpinner.add("CN");
+
+            roleSpinner.add("AD Carry"); roleSpinner.add("Support");roleSpinner.add("Top");roleSpinner.add("Mid");roleSpinner.add("Jungle");
+
+            rankSpinner.add("Master");rankSpinner.add("Challenger");
+            rankSpinner.add("Diamond I");rankSpinner.add("Diamond II");rankSpinner.add("Diamond III");rankSpinner.add("Diamond IV");rankSpinner.add("Diamond V");
+            rankSpinner.add("Platinum I");rankSpinner.add("Platinum II");rankSpinner.add("Platinum III");rankSpinner.add("Platinum IV");rankSpinner.add("Platinum V");
+            rankSpinner.add("Gold I");rankSpinner.add("Gold II");rankSpinner.add("Gold III");rankSpinner.add("Gold IV");rankSpinner.add("Gold V");
+            rankSpinner.add("Silver I");rankSpinner.add("Silver II");rankSpinner.add("Silver III");rankSpinner.add("Silver IV");rankSpinner.add("Silver V");
+            rankSpinner.add("Bronze I");rankSpinner.add("Bronze II");rankSpinner.add("Bronze III");rankSpinner.add("Bronze IV");rankSpinner.add("Bronze V");
+
+        }else if(actGame.equals("Fortnite")){
+
+            regionSpinner.add("European");regionSpinner.add("American");
+
+            roleSpinner.add("There is no point here");
+
+            rankSpinner.add("There is no point here");
+        }
+
+        ArrayAdapter<String> regionAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, regionSpinner);
+        ArrayAdapter<String> roleAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, roleSpinner);
+        ArrayAdapter<String> rankAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, rankSpinner);
+
+        regionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        roleAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        rankAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
         playerName = (EditText) view.findViewById(R.id.input_playerName);
-        playerRole = (EditText) view.findViewById(R.id.input_role);
-        playerRank = (EditText) view.findViewById(R.id.input_rank);
-        playerRegion = (EditText) view.findViewById(R.id.input_region);
-        playerServer = (EditText) view.findViewById(R.id.input_server);
+        playerRole = (Spinner) view.findViewById(R.id.input_role_spinner);
+        playerRank = (Spinner) view.findViewById(R.id.input_rank_spinner);
+        playerRegion = (Spinner) view.findViewById(R.id.input_server_spinner);
+        playerStyle = (Spinner) view.findViewById(R.id.input_style_spinner);
         playerMotivation = (Spinner) view.findViewById(R.id.input_motivation_spinner);
+
+        playerRegion.setAdapter(regionAdapter);
+        playerRole.setAdapter(roleAdapter);
+        playerRank.setAdapter(rankAdapter);
 
         final Button saveButton = (Button) view.findViewById(R.id.btn_saveGame);
         final Button updateButton = (Button) view.findViewById(R.id.btn_updateProfil);
@@ -92,10 +139,10 @@ public class GamesParamFragment extends Fragment {
 
     private void sendInfo() {
         activityCommander.gamerInfo(playerName.getText().toString(),
-                                    playerRole.getText().toString(),
-                                    playerRank.getText().toString(),
-                                    playerRegion.getText().toString(),
-                                    playerServer.getText().toString(),
+                                    playerRole.getSelectedItem().toString(),
+                                    playerRank.getSelectedItem().toString(),
+                                    playerRegion.getSelectedItem().toString(),
+                                    playerStyle.getSelectedItem().toString(),
                                     playerMotivation.getSelectedItem().toString());
     }
 
@@ -105,10 +152,10 @@ public class GamesParamFragment extends Fragment {
 
     private void updatePlayer(){
         activityCommander.updateGamerInfo(  playerName.getText().toString(),
-                                            playerRole.getText().toString(),
-                                            playerRank.getText().toString(),
-                                            playerRegion.getText().toString(),
-                                            playerServer.getText().toString(),
+                                            playerRole.getSelectedItem().toString(),
+                                            playerRank.getSelectedItem().toString(),
+                                            playerRegion.getSelectedItem().toString(),
+                                            playerStyle.getSelectedItem().toString(),
                                             playerMotivation.getSelectedItem().toString());
     }
 }

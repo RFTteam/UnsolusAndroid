@@ -122,14 +122,6 @@ public class PlayerProfileActivity extends AppCompatActivity implements GamesPar
         optionalParams.put("Server", server);
         optionalParams.put("Motivation", motivation);
 
-        boolean validate = true;
-
-        if (name.equals(null)){
-            validate = false;
-            Toast.makeText(getApplicationContext(), "Ingame name required!", Toast.LENGTH_LONG).show();
-        }
-
-        if (validate){
             call = service.uploadPlayer(actualGame, name, optionalParams, tokenManager.getToken().getToken());
             call.enqueue(new Callback<Player>() {
                 @Override
@@ -138,7 +130,7 @@ public class PlayerProfileActivity extends AppCompatActivity implements GamesPar
                     if (response.isSuccessful())
                         Toast.makeText(getApplicationContext(), "Profile saved successfully", Toast.LENGTH_LONG).show();
                     else
-                        Toast.makeText(getApplicationContext(), "Can not create second profile for the same game", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Can not create second profile or nickname required", Toast.LENGTH_LONG).show();
                 }
 
                 @Override
@@ -146,7 +138,6 @@ public class PlayerProfileActivity extends AppCompatActivity implements GamesPar
                     Log.w(TAG, "onFailure: " + t.getMessage() );
                 }
             });
-        }
     }
 
     @Override
@@ -225,12 +216,18 @@ public class PlayerProfileActivity extends AppCompatActivity implements GamesPar
 
     public void changeFragment(String state){
         if (findViewById(R.id.fragment_container) != null){
+            Bundle bundle = new Bundle();
+
+            if (actualGame.equals("Fortnite"))
+                bundle.putString("game","Fortnite");
+            else
+                bundle.putString("game", "LoL");
 
             GamesParamFragment gameinfoFragment_1 = new GamesParamFragment();
-            gameinfoFragment_1.setArguments(getIntent().getExtras());
+            gameinfoFragment_1.setArguments(bundle);
 
             GamesParamFragment gameinfoFragment_2 = new GamesParamFragment();
-            gameinfoFragment_2.setArguments(getIntent().getExtras());
+            gameinfoFragment_2.setArguments(bundle);
 
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
@@ -239,7 +236,6 @@ public class PlayerProfileActivity extends AppCompatActivity implements GamesPar
 
             if (state.equals("replace")){
                 transaction.replace(R.id.fragment_container, gameinfoFragment_2);
-                transaction.addToBackStack(null);
             }
 
             transaction.commit();

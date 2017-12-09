@@ -411,31 +411,18 @@
         <item>Master</item>
         <item>Challenger</item>
     </string-array>
-    <string-array name="lol_servers">
-        <item>North America</item>
-        <item>EU Nordic / East</item>
-        <item>EU West</item>
-        <item>Latin America South</item>
-        <item>Latin America North</item>
-        <item>Brazil</item>
-        <item>Turkey</item>
-        <item>Oceania</item>
-    </string-array>
-    <string-array name="lol_roles">
-        <item>AD Carry</item>
-        <item>Support</item>
-        <item>Mid</item>
-        <item>Top</item>
-        <item>Jungler</item>
-    </string-array>
     <string-array name="motivations">
         <item>Play for Fun</item>
         <item>Become Pro</item>
         <item>Amateur</item>
     </string-array>
-    <string-array name="firtnite_servers">
-        <item>American</item>
-        <item>European</item>
+    <string-array name="styles">
+        <item>Aggressive</item>
+        <item>Passive</item>
+        <item>Roamer</item>
+        <item>Ganker</item>
+        <item>Invader</item>
+        <item>Farmer</item>
     </string-array>
 
     <string name="title_activity_main">MainActivity</string>

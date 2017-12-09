@@ -83,8 +83,9 @@ public class PlayersFragment extends Fragment {
                             stuffsFromPlayers = new ArrayList<String>();
                             stuffsFromPlayers.add("\t Game - " + player.getGame() +
                                     "\n \t \t Rank - " + player.getRank() +
-                                    "\n \t \t Server - " + player.getServer() +
+                                    "\n \t \t Region - " + player.getRegion() +
                                     "\n \t \t Role - " + player.getRole() +
+                                    "\n \t \t Server - " + player.getServer() +
                                     "\n \t \t Motivation - " + player.getMotivation());
 
                             listDataChild.put(listDataHeader.get(counter), stuffsFromPlayers);
