@@ -5,6 +5,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +19,7 @@ import android.widget.Toast;
 import java.util.List;
 
 import retrofit2.Call;
+import rft.unideb.unsolus.MainActivity;
 import rft.unideb.unsolus.R;
 import rft.unideb.unsolus.entities.User;
 import rft.unideb.unsolus.network.ApiService;
@@ -41,27 +46,27 @@ public class HomeFragment extends Fragment {
         games.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Fragment fragment = new GamesFragment();
-                FragmentChangeListener fragmentChangeListener = (FragmentChangeListener)getActivity();
-                fragmentChangeListener.replaceFragment(fragment, "games");
+                Toast.makeText(getActivity().getApplicationContext(), "Open from menu (On your left)", Toast.LENGTH_LONG).show();
             }
         });
 
         players.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Fragment fragment = new PlayersFragment();
-                FragmentChangeListener fragmentChangeListener = (FragmentChangeListener)getActivity();
-                fragmentChangeListener.replaceFragment(fragment, "players");
+                Toast.makeText(getActivity().getApplicationContext(), "Open from menu (On your left)", Toast.LENGTH_LONG).show();
+//                Fragment fragment = new PlayersFragment();
+//                FragmentChangeListener fragmentChangeListener = (FragmentChangeListener)getActivity();
+//                fragmentChangeListener.replaceFragment(fragment, "players");
             }
         });
 
         teams.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Fragment fragment = new TeamsFragment();
-                FragmentChangeListener fragmentChangeListener = (FragmentChangeListener)getActivity();
-                fragmentChangeListener.replaceFragment(fragment, "teams");
+                Toast.makeText(getActivity().getApplicationContext(), "Open from menu (On your left)", Toast.LENGTH_LONG).show();
+//                Fragment fragment = new TeamsFragment();
+//                FragmentChangeListener fragmentChangeListener = (FragmentChangeListener)getActivity();
+//                fragmentChangeListener.replaceFragment(fragment, "teams");
             }
         });
 

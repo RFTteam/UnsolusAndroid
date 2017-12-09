@@ -120,6 +120,7 @@ public class MainActivity extends AppCompatActivity implements FragmentChangeLis
             CURRENT_TAG = TAG_Home;
             loadHomeFragment();
         }
+
     }
 
     private void selectNavMenu() {
