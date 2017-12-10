@@ -26,7 +26,6 @@ import rft.unideb.unsolus.network.ApiService;
 import rft.unideb.unsolus.network.RetrofitBuilder;
 import rft.unideb.unsolus.others.ExpandableListAdapter;
 import rft.unideb.unsolus.others.TokenManager;
-//TODO: SPINNER INSTEAD OF TEXTFIELD
 public class PlayerProfileActivity extends AppCompatActivity implements GamesParamFragment.GameInfoListener{
 
     private static final String TAG = "PlayerProfileActivity";
@@ -196,7 +195,6 @@ public class PlayerProfileActivity extends AppCompatActivity implements GamesPar
             });
         }
     }
-    //TODO: FIX 2 CLICK
     void getTheID(){
         call2 = service.getMyPlayers(tokenManager.getToken().getToken());
         call2.enqueue(new Callback<List<Player>>() {

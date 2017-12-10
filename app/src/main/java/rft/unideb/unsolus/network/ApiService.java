@@ -61,4 +61,7 @@ public interface ApiService {
 
     @GET("api/players/{game}?token=")
     Call<List<Player>> getPlayersPerGame(@Path("game") String game, @Query("token") String token);
+
+    @GET("api/players?token=")
+    Call<List<Player>> getAllPlayers(@Query("token") String token);
 }

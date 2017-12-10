@@ -29,18 +29,18 @@ import static android.content.ContentValues.TAG;
 
 public class GamesFragment extends Fragment {
 
-    ApiService service;
-    TokenManager tokenManager;
-    Call<List<Game>> call;
-    Call<List<Player>> playersCall;
+    private ApiService service;
+    private TokenManager tokenManager;
+    private Call<List<Game>> call;
+    private Call<List<Player>> playersCall;
 
-    ExpandableListAdapter listAdapter;
-    ExpandableListView expandableListView;
-    List<String> listDataHeader;
-    HashMap<String, List<String>> listDataChild;
+    private ExpandableListAdapter listAdapter;
+    private ExpandableListView expandableListView;
+    private List<String> listDataHeader;
+    private HashMap<String, List<String>> listDataChild;
 
-    int counter = 0;
-    int variant = 1;
+    private int counter = 0;
+    private int variant = 1;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

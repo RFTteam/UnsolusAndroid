@@ -36,7 +36,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".AccountSettingsActivity" />
         <activity android:name=".Forgot_password_activity" />
-        <activity android:name=".PlayerProfileActivity"></activity>
+        <activity android:name=".PlayerProfileActivity" />
+        <activity android:name=".FiltersActivity"></activity>
     </application>
 
 </manifest>
