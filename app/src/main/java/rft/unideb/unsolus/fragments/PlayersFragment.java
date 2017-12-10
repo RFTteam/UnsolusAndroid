@@ -56,10 +56,10 @@ public class PlayersFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view =inflater.inflate(R.layout.fragment_players, container, false);
 
-        /*if (){
-            String testeset = getArguments().getString("criteria");
-            Toast.makeText(getActivity(), testeset, Toast.LENGTH_LONG).show();
-        }*/
+        Bundle args = getArguments();
+        if (args != null){
+            //TODO: handle stuffs
+        }
 
         tokenManager = TokenManager.getInstance(this.getActivity().getSharedPreferences("prefs", Context.MODE_PRIVATE));
         service = RetrofitBuilder.createServiceWithToken(ApiService.class,tokenManager);
@@ -90,7 +90,7 @@ public class PlayersFragment extends Fragment {
         db.add(" ");
         listDataChild.put(listDataHeader.get(0), db);
         counter = 0;
-            playersCall = service.getAllPlayers(tokenManager.getToken().getToken());
+            playersCall = service.getAllPlayer(tokenManager.getToken().getToken());
             playersCall.enqueue(new Callback<List<Player>>() {
                 @Override
                 public void onResponse(Call<List<Player>> call, Response<List<Player>> response) {

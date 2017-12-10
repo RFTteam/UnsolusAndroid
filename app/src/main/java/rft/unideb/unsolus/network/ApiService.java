@@ -16,6 +16,8 @@ import retrofit2.http.Query;
 import rft.unideb.unsolus.entities.AccessToken;
 import rft.unideb.unsolus.entities.Game;
 import rft.unideb.unsolus.entities.Player;
+import rft.unideb.unsolus.entities.Team;
+import rft.unideb.unsolus.entities.Teammember;
 import rft.unideb.unsolus.entities.User;
 
 public interface ApiService {
@@ -63,5 +65,31 @@ public interface ApiService {
     Call<List<Player>> getPlayersPerGame(@Path("game") String game, @Query("token") String token);
 
     @GET("api/players?token=")
-    Call<List<Player>> getAllPlayers(@Query("token") String token);
+    Call<List<Player>> getAllPlayer(@Query("token") String token);
+
+    @POST("api/team?token=")
+    @FormUrlEncoded
+    Call<Team> createTeam(@Field("Teamname") String teamName, @Field("Teamgoal") String teamGoal, @Field("Server") String server, @Field("Country") String country, @Field("Language") String language, @Field("Gamename") String gameName, @Query("token") String token);
+
+    @DELETE("api/team/{id}?token=")
+    Call<Team>  deleteTeam(@Path("id") int id, @Query("token") String token);
+
+    @GET("api/team/{id}?token=")
+    Call<Team>  getTeambyID(@Path("id") int id, @Query("token") String token);
+
+    @GET("api/teams?token=")
+    Call<List<Team>> getAllTeam(@Query("token") String token);
+
+    @GET("api/teams/{game}?token=")
+    Call<List<Team>> getTeamsPerGame(@Path("game") String game, @Query("token") String token);
+
+    @POST("api/teammember/{id}?token=")
+    @FormUrlEncoded
+    Call<Teammember> joinTeam(@Path("id") int id, @Query("token") String token);
+
+    @DELETE("api/teammember/{id}?token=")
+    Call<Teammember>  leaveTeam(@Path("id") int id, @Query("token") String token);
+
+    @GET("api/teammembers/{id}?token=")
+    Call<List<Player>> getPlayersPerTeam(@Path("id") int id, @Query("token") String token);
 }
