@@ -23,6 +23,7 @@ import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import rft.unideb.unsolus.PlayerManagementActivity;
 import rft.unideb.unsolus.R;
 import rft.unideb.unsolus.TeamManagementActivity;
 import rft.unideb.unsolus.entities.Player;
@@ -65,6 +66,13 @@ public class TeamsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getActivity(), TeamManagementActivity.class));
+            }
+        });
+
+        playerManagement.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), PlayerManagementActivity.class));
             }
         });
 

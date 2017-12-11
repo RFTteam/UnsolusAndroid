@@ -38,7 +38,8 @@
         <activity android:name=".Forgot_password_activity" />
         <activity android:name=".PlayerProfileActivity" />
         <activity android:name=".FiltersActivity" />
-        <activity android:name=".TeamManagementActivity"></activity>
+        <activity android:name=".TeamManagementActivity" />
+        <activity android:name=".PlayerManagementActivity"></activity>
     </application>
 
 </manifest>

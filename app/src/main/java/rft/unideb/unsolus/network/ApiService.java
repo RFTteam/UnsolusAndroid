@@ -84,7 +84,6 @@ public interface ApiService {
     Call<List<Team>> getTeamsPerGame(@Path("game") String game, @Query("token") String token);
 
     @POST("api/teammember/{id}?token=")
-    @FormUrlEncoded
     Call<Teammember> joinTeam(@Path("id") int id, @Query("token") String token);
 
     @DELETE("api/teammember/{id}?token=")
