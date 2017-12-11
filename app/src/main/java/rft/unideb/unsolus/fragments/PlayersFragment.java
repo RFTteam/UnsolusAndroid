@@ -1,66 +1,138 @@
 package rft.unideb.unsolus.fragments;
 
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ExpandableListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import rft.unideb.unsolus.AboutUsActivity;
+import rft.unideb.unsolus.FiltersActivity;
+import rft.unideb.unsolus.MainActivity;
 import rft.unideb.unsolus.R;
+import rft.unideb.unsolus.entities.Game;
+import rft.unideb.unsolus.entities.Player;
+import rft.unideb.unsolus.network.ApiService;
+import rft.unideb.unsolus.network.RetrofitBuilder;
+import rft.unideb.unsolus.others.ExpandableListAdapter;
+import rft.unideb.unsolus.others.TokenManager;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link PlayersFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import static android.content.ContentValues.TAG;
+
 public class PlayersFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private Button setFilters;
+    private Button removeFilters;
 
+    private ApiService service;
+    private TokenManager tokenManager;
+    private Call<List<Player>> playersCall;
 
-    public PlayersFragment() {
-        // Required empty public constructor
-    }
+    private ExpandableListAdapter listAdapter;
+    private ExpandableListView expandableListView;
+    private List<String> listDataHeader;
+    private HashMap<String, List<String>> listDataChild;
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment PlayersFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static PlayersFragment newInstance(String param1, String param2) {
-        PlayersFragment fragment = new PlayersFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    private int counter;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_players, container, false);
+        View view =inflater.inflate(R.layout.fragment_players, container, false);
+
+        Bundle args = getArguments();
+        if (args != null){
+            //TODO: handle stuffs
+        }
+
+        tokenManager = TokenManager.getInstance(this.getActivity().getSharedPreferences("prefs", Context.MODE_PRIVATE));
+        service = RetrofitBuilder.createServiceWithToken(ApiService.class,tokenManager);
+
+        expandableListView = (ExpandableListView) view.findViewById(R.id.playerNames_expandable);
+        getAllPlayer();
+        listAdapter = new ExpandableListAdapter(this.getActivity(), listDataHeader, listDataChild);
+
+        expandableListView.setAdapter(listAdapter);
+
+        setFilters = (Button) view.findViewById(R.id.btn_filter);
+        setFilters.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), FiltersActivity.class));
+            }
+        });
+        return view;
     }
 
+    public void getAllPlayer(){
+        listDataHeader = new ArrayList<String>();
+        listDataChild = new HashMap<String, List<String>>();
+
+        listDataHeader.add(" ");
+
+        List<String> db = new ArrayList<String>();
+        db.add(" ");
+        listDataChild.put(listDataHeader.get(0), db);
+        counter = 0;
+            playersCall = service.getAllPlayer(tokenManager.getToken().getToken());
+            playersCall.enqueue(new Callback<List<Player>>() {
+                @Override
+                public void onResponse(Call<List<Player>> call, Response<List<Player>> response) {
+                    Log.w(TAG, "onResponse: " + response );
+                    if (response.isSuccessful()){
+                        List<String> stuffsFromPlayers;
+                        for (Player player : response.body()) {
+
+                                listDataHeader.add(player.getGamerName().toString());
+                                counter++;
+                                stuffsFromPlayers = new ArrayList<String>();
+                                stuffsFromPlayers.add("\t Game - " + player.getGame() +
+                                        "\n \t \t Rank - " + player.getRank() +
+                                        "\n \t \t Region - " + player.getRegion() +
+                                        "\n \t \t Role - " + player.getRole() +
+                                        "\n \t \t Style - " + player.getServer() +
+                                        "\n \t \t Motivation - " + player.getMotivation());
+
+                                listDataChild.put(listDataHeader.get(counter), stuffsFromPlayers);
+
+                        }
+                    }
+                }
+                @Override
+                public void onFailure(Call<List<Player>> call, Throwable t) {
+                    Log.w(TAG, "onFailure: " + t.getMessage() );
+                }
+        });
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (getActivity() != null)
+            getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (getActivity() != null)
+            getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+    }
 }

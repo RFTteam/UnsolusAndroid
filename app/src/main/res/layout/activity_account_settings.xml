@@ -44,7 +44,7 @@
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
+                android:layout_marginBottom="6dp"
                 android:layout_marginTop="24dp">
 
                 <TextView android:id="@+id/personal_info"
@@ -54,6 +54,21 @@
                     android:textColor="@color/orange"
                     android:gravity="left"
                     android:text="@string/personal_info"
+                    />
+
+            </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp">
+
+                <TextView android:id="@+id/info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="12dp"
+                    android:textColor="@color/orange"
+                    android:gravity="left"
+                    android:text="@string/info"
                     />
 
             </android.support.design.widget.TextInputLayout>
@@ -167,27 +182,6 @@
                             android:background="@android:color/holo_orange_light">
 
                             <EditText
-                                android:id="@+id/input_Oldpassword"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:drawableLeft="@drawable/lock_icon"
-                                android:drawablePadding="10dp"
-                                android:drawableStart="@drawable/lock_icon"
-                                android:hint="Old password"
-                                android:inputType="textPassword" />
-                        </android.support.design.widget.TextInputLayout>
-
-                        <android.support.design.widget.TextInputLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="8dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginLeft="50dp"
-                            android:layout_marginRight="50dp"
-                            app:passwordToggleEnabled="true"
-                            android:background="@android:color/holo_orange_light">
-
-                            <EditText
                                 android:id="@+id/input_Newpassword"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -236,51 +230,15 @@
                     />
 
             </android.support.design.widget.TextInputLayout>
-
-                    <android.support.design.widget.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="20dp"
-                        android:background="@android:color/holo_orange_light">
-
-                        <EditText
-                            android:id="@+id/steam_acc"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:drawableLeft="@drawable/accounts_icon"
-                            android:drawablePadding="10dp"
-                            android:drawableStart="@drawable/accounts_icon"
-                            android:hint="Steam account link"
-                            android:inputType="textCapWords" />
-                    </android.support.design.widget.TextInputLayout>
-
-                    <android.support.design.widget.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="20dp"
-                        android:background="@android:color/holo_orange_light">
-
-                        <EditText
-                            android:id="@+id/battle_net_acc"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:drawableLeft="@drawable/accounts_icon"
-                            android:drawablePadding="10dp"
-                            android:drawableStart="@drawable/accounts_icon"
-                            android:hint="Battle.net account link"
-                            android:inputType="textCapWords" />
-                    </android.support.design.widget.TextInputLayout>
-<!--
-            <ExpandableListView android:id="@+id/setting_expendableLV"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
--->
+                <Button
+                    android:id="@+id/btn_editPlayerProfile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:padding="12dp"
+                    android:layout_gravity="center"
+                    android:text="@string/editplayerprofile"
+                    android:background="@android:color/holo_orange_dark"/>
 
             <!-- Save Button -->
             <Button

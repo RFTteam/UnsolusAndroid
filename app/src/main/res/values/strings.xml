@@ -21,7 +21,6 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."</string>
 
-    <!-- these just temporary / for spinners in reg-->
     <string-array name="country_arrays">
         <item>Afghanistan</item>
         <item>Albania</item>
@@ -403,13 +402,40 @@
         <item>Yoruba</item>
         <item>Zulu</item>
     </string-array>
+    <string-array name="game_list">
+        <item>Fortnite</item>
+        <item>League of Legends</item>
+    </string-array>
+    <string-array name="motivations">
+        <item>Play for Fun</item>
+        <item>Become Pro</item>
+        <item>Amateur</item>
+    </string-array>
+    <string-array name="styles">
+        <item>Aggressive</item>
+        <item>Passive</item>
+        <item>Roamer</item>
+        <item>Ganker</item>
+        <item>Invader</item>
+        <item>Farmer</item>
+    </string-array>
 
     <string name="title_activity_main">MainActivity</string>
-
+    <string name="info">*These informations are only required once, but later you can not change them.</string>
+    <string name="gamesInfo">
+        The fields with * are necessary. \n
+        Only one profile can be for the same game. \n
+        You can update your player profile, but the empty fields will be null, does not matter you filled up earlier. \n
+        Please fill out the fields correctly. </string>
+    <string name="editplayerprofile">Setting your player profile</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="openDrawer">open_drawer</string>
     <string name="closeDrawer">close_drawer</string>
+    <string name="choseGames">Choose your games</string>
+    <string name="savePlayer">Save</string>
+    <string name="deleteExistingProfile">Delete</string>
+    <string name="updatePlayerProfile">Update</string>
 
     <string name="action_logout">Logout</string>
 
@@ -435,7 +461,8 @@
 
 
     <string name="game_fragment">Hello blank GAMES fragment</string>
-    <string name="home_fragment">Hello blank HOME fragment</string>
+    <string name="home_fragment">Welcome! \n \n
+        What are you looking for? \n </string>
     <string name="players_fragment">Hello blank PLAYER fragment</string>
     <string name="teams_fragment">Hello blank TEAM fragment</string>
     <string name="title_activity_account_settings">Settings</string>

@@ -1,5 +1,6 @@
 package rft.unideb.unsolus;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -41,19 +42,20 @@ public class RegisterActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        service = RetrofitBuilder.createService(ApiService.class);
-
         tokenManager = TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE));
+        service = RetrofitBuilder.createService(ApiService.class);
 
         if (tokenManager.getToken().getToken() != null){
             startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
             finish();
         }
+
     }
 
     @OnClick(R.id.btn_signup)
     void register() {
         validate = true;
+        final ProgressDialog progressDialog = new ProgressDialog(RegisterActivity.this);
 
         String name = inputName.getText().toString();
         String email = inputEmail.getText().toString();
@@ -69,8 +71,8 @@ public class RegisterActivity extends AppCompatActivity {
             validate = false;
         }
 
-        if (password.isEmpty()){
-            inputPassword.setError("Enter your password");
+        if (password.isEmpty() || password.length() < 2){
+            inputPassword.setError("Enter your password (at least 2 char)");
             validate = false;
         }
 
@@ -81,13 +83,19 @@ public class RegisterActivity extends AppCompatActivity {
                 public void onResponse(Call<AccessToken> call, Response<AccessToken> response) {
 
                     Log.w(TAG, "onResponse: " + response);
+                    progressDialog.setMessage("Please wait...");
+                    progressDialog.show();
 
                     if (response.isSuccessful()){
                         Log.w(TAG, "onResponse: " + response.body());
                         tokenManager.saveToken(response.body());
-                        startActivity(new Intent(RegisterActivity.this, AccountSettingsActivity.class));
-                        Toast.makeText(getApplicationContext(), "Account Created", Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+                        Toast.makeText(getApplicationContext(), "Account created, finish your reg ", Toast.LENGTH_SHORT).show();
                         finish();
+                    }else{
+                        if(response.code() == 500){
+                            Toast.makeText(getApplicationContext(), "Ops something went wrong.. Try again. (Maybe the username or email has already taken.)", Toast.LENGTH_LONG).show();
+                        }
                     }
                 }
 
@@ -112,4 +120,5 @@ public class RegisterActivity extends AppCompatActivity {
     void backToLogin(){
         finish();
     }
+
 }

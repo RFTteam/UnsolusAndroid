@@ -19,7 +19,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.List;
 
 import butterknife.ButterKnife;
 import retrofit2.Call;
@@ -32,20 +35,17 @@ import rft.unideb.unsolus.fragments.PlayersFragment;
 import rft.unideb.unsolus.fragments.TeamsFragment;
 import rft.unideb.unsolus.network.ApiService;
 import rft.unideb.unsolus.network.RetrofitBuilder;
+import rft.unideb.unsolus.others.FragmentChangeListener;
 import rft.unideb.unsolus.others.TokenManager;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements FragmentChangeListener{
 
     private static final String TAG = "MainActivity";
-//try
-  /*  @BindView(R.id.userName)
-    TextView txtName;
-    @BindView(R.id.userEmail)
-    TextView txtEmail;
-*/
+
     private NavigationView navigationView;
     private DrawerLayout drawer;
     private View hView;
+    private TextView txtName, txtMail;
     private Toolbar toolbar;
     private FloatingActionButton fab;
 
@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
     ApiService service;
     TokenManager tokenManager;
     Call<User> call;
+    Call<List<User>> callforallUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,8 +82,16 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Just a flying button.. yet..", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Support Contact", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                Intent i = new Intent(Intent.ACTION_SEND);
+                i.setType("message/rfc822");
+                i.putExtra(Intent.EXTRA_EMAIL, new String[]{"unsolus.supp@gmail.com"});
+                try{
+                    startActivity(Intent.createChooser(i, "Send Mail.."));
+                }catch (android.content.ActivityNotFoundException ex){
+                    Toast.makeText(getApplicationContext(), "No mail client sry :/", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -94,6 +103,13 @@ public class MainActivity extends AppCompatActivity {
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         hView = navigationView.getHeaderView(0);
+        txtName = (TextView) hView.findViewById(R.id.userName);
+        txtMail = (TextView) hView.findViewById(R.id.userEmail);
+
+        tokenManager = TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE));
+        service = RetrofitBuilder.createServiceWithToken(ApiService.class,tokenManager);
+        getUserCredentials();
+        getAllUser();
 
         activityTitles = getResources().getStringArray(R.array.nav_item_activity_titles);
 
@@ -105,109 +121,6 @@ public class MainActivity extends AppCompatActivity {
             loadHomeFragment();
         }
 
-
-        tokenManager = TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE));
-
-        service = RetrofitBuilder.createServiceWithToken(ApiService.class,tokenManager);
-        getUserCredentials();
-        getAllUser();
-    }
-
-    void getUserCredentials(){
-        call = service.getUser(tokenManager.getToken().getToken());
-        call.enqueue(new Callback<User>() {
-            @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-                Log.w(TAG, "onResponse: " + response );
-                Toast.makeText(MainActivity.this, "Hello ujra " + response.body().getUsername(), Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onFailure(Call<User> call, Throwable t) {
-                Log.w(TAG, "onFailure: " + t.getMessage() );
-            }
-        });
-
-    }
-
-    void getAllUser(){
-        call = service.getUsers(tokenManager.getToken().getToken());
-            call.enqueue(new Callback<User>() {
-                @Override
-                public void onResponse(Call<User> call, Response<User> response) {
-                    Log.w(TAG, "onResponse: " + response );
-                }
-
-                @Override
-                public void onFailure(Call<User> call, Throwable t) {
-                    Log.w(TAG, "onFailure: " + t.getMessage() );
-                }
-            });
-
-    }
-
-    private void loadHomeFragment() {
-        selectNavMenu();
-        setToolbarTitle();
-        if (getSupportFragmentManager().findFragmentByTag(CURRENT_TAG) != null){
-            drawer.closeDrawers();
-
-            toggleFab();
-            return;
-        }
-
-        Runnable mPendingRunnable = new Runnable() {
-            @Override
-            public void run() {
-                Fragment fragment = getHomeFragment();
-                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.setCustomAnimations(android.R.anim.fade_in,android.R.anim.fade_out);
-                fragmentTransaction.replace(R.id.frame, fragment, CURRENT_TAG);
-                fragmentTransaction.commitAllowingStateLoss();
-
-            }
-        };
-
-        if (mPendingRunnable != null) {
-            mHandler.post(mPendingRunnable);
-        }
-
-        toggleFab();
-
-        drawer.closeDrawers();
-
-        invalidateOptionsMenu();
-
-    }
-
-    private Fragment getHomeFragment() {
-        switch (navItemIndex){
-            case 0:
-                HomeFragment homeFragment = new HomeFragment();
-                return homeFragment;
-            case 1:
-                GamesFragment gameFragment = new GamesFragment();
-                return gameFragment;
-            case 2:
-                PlayersFragment playersFragment = new PlayersFragment();
-                return playersFragment;
-            case 3:
-                TeamsFragment teamsFragment = new TeamsFragment();
-                return teamsFragment;
-            default:
-                return new HomeFragment();
-        }
-    }
-
-    private void toggleFab() {
-        if (navItemIndex == 0)
-            fab.show();
-        else
-            fab.hide();
-    }
-
-    private void setToolbarTitle() {
-        getSupportActionBar().setTitle(activityTitles[navItemIndex]);
     }
 
     private void selectNavMenu() {
@@ -249,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
                         return true;
                     case R.id.nav_logout:
                         Toast.makeText(getApplicationContext(), "Logout user!", Toast.LENGTH_LONG).show();
-                       logout();
+                        logout();
                     default:
                         navItemIndex=0;
                 }
@@ -288,6 +201,98 @@ public class MainActivity extends AppCompatActivity {
         actionBarDrawerToggle.syncState();
     }
 
+    private void loadHomeFragment() {
+        selectNavMenu();
+        setToolbarTitle();
+        if (getSupportFragmentManager().findFragmentByTag(CURRENT_TAG) != null){
+            drawer.closeDrawers();
+
+            toggleFab();
+            return;
+        }
+
+        Runnable mPendingRunnable = new Runnable() {
+            @Override
+            public void run() {
+                replaceFragment(getHomeFragment(),CURRENT_TAG);
+            }
+        };
+
+        if (mPendingRunnable != null) {
+            mHandler.post(mPendingRunnable);
+        }
+
+        toggleFab();
+
+        drawer.closeDrawers();
+
+        invalidateOptionsMenu();
+
+    }
+
+    private Fragment getHomeFragment() {
+        switch (navItemIndex){
+            case 0:
+                HomeFragment homeFragment = new HomeFragment();
+                return homeFragment;
+            case 1:
+                GamesFragment gameFragment = new GamesFragment();
+                return gameFragment;
+            case 2:
+                PlayersFragment playersFragment = new PlayersFragment();
+                return playersFragment;
+            case 3:
+                TeamsFragment teamsFragment = new TeamsFragment();
+                return teamsFragment;
+            default:
+                return new HomeFragment();
+        }
+    }
+
+    void getUserCredentials(){
+        call = service.getUser(tokenManager.getToken().getToken());
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                Log.w(TAG, "onResponse: " + response );
+                txtName.setText(response.body().getUsername());
+                txtMail.setText(response.body().getEmail());
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                Log.w(TAG, "onFailure: " + t.getMessage() );
+            }
+        });
+    }
+
+    void getAllUser(){
+        callforallUser = service.getUsers(tokenManager.getToken().getToken());
+        callforallUser.enqueue(new Callback<List<User>>() {
+            @Override
+            public void onResponse(Call<List<User>> call, Response<List<User>> response) {
+                Log.w(TAG, "onResponse: " + response );
+            }
+
+            @Override
+            public void onFailure(Call<List<User>> call, Throwable t) {
+                Log.w(TAG, "onFailure: " + t.getMessage() );
+            }
+        });
+
+    }
+
+    private void toggleFab() {
+        if (navItemIndex == 0)
+            fab.show();
+        else
+            fab.hide();
+    }
+
+    private void setToolbarTitle() {
+        getSupportActionBar().setTitle(activityTitles[navItemIndex]);
+    }
+
     @Override
     public void onBackPressed() {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -302,12 +307,10 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
         }
-        super.onBackPressed();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         if (navItemIndex == 0){
             getMenuInflater().inflate(R.menu.main, menu);
         }
@@ -316,9 +319,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         if (id == R.id.action_logout){
@@ -335,8 +335,8 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = preferences.edit();
         editor.clear();
         editor.commit();
-        finish();
         startActivity(new Intent(MainActivity.this, LoginActivity.class));
+        finish();
     }
 
     @Override
@@ -346,5 +346,14 @@ public class MainActivity extends AppCompatActivity {
             call.cancel();
             call = null;
         }
+        logout();
+    }
+
+    @Override
+    public void replaceFragment(Fragment fragment, String current_tag) {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.setCustomAnimations(android.R.anim.fade_in,android.R.anim.fade_out);
+        fragmentTransaction.replace(R.id.frame, fragment, current_tag);
+        fragmentTransaction.commit();
     }
 }
