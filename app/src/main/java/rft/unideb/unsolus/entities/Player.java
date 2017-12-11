@@ -11,7 +11,7 @@ public class Player {
     String Rank;
     @Json(name = "Role")
     String Role;
-    @Json(name = "Region")
+    @Json(name = "Style")
     String Region;
     @Json(name = "Server")
     String Server;

@@ -117,7 +117,7 @@ public class PlayerProfileActivity extends AppCompatActivity implements GamesPar
         Map<String, String> optionalParams = new HashMap<>();
         optionalParams.put("Role", role);
         optionalParams.put("Rank", rank);
-        optionalParams.put("Region", region);
+        optionalParams.put("Style", region);
         optionalParams.put("Server", server);
         optionalParams.put("Motivation", motivation);
 
@@ -167,7 +167,7 @@ public class PlayerProfileActivity extends AppCompatActivity implements GamesPar
         Map<String, String> optionalParams = new HashMap<>();
         optionalParams.put("Role", role);
         optionalParams.put("Rank", rank);
-        optionalParams.put("Region", region);
+        optionalParams.put("Style", region);
         optionalParams.put("Server", server);
         optionalParams.put("Motivation", motivation);
 

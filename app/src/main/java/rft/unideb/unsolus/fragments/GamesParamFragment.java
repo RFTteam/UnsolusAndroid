@@ -66,6 +66,7 @@ public class GamesParamFragment extends Fragment {
         List<String> regionSpinner = new ArrayList<String>();
         List<String> roleSpinner = new ArrayList<String>();
         List<String> rankSpinner = new ArrayList<String>();
+        List<String> styleSpinner = new ArrayList<String>();
 
         if (actGame.equals("LoL")){
 
@@ -82,22 +83,28 @@ public class GamesParamFragment extends Fragment {
             rankSpinner.add("Silver I");rankSpinner.add("Silver II");rankSpinner.add("Silver III");rankSpinner.add("Silver IV");rankSpinner.add("Silver V");
             rankSpinner.add("Bronze I");rankSpinner.add("Bronze II");rankSpinner.add("Bronze III");rankSpinner.add("Bronze IV");rankSpinner.add("Bronze V");
 
+            styleSpinner.add("Aggressive");styleSpinner.add("Passive");styleSpinner.add("Roamer");styleSpinner.add("Ganker");styleSpinner.add("Invader");styleSpinner.add("Farmer");
+
         }else if(actGame.equals("Fortnite")){
 
             regionSpinner.add("European");regionSpinner.add("American");
 
-            roleSpinner.add("There is no point here");
+            roleSpinner.add("Soldier");roleSpinner.add("Constructor");roleSpinner.add("Ninja");roleSpinner.add("Outlander");
 
-            rankSpinner.add("There is no point here");
+            rankSpinner.add("Not yet");
+
+            styleSpinner.add("Offensive");styleSpinner.add("Defensive");
         }
 
         ArrayAdapter<String> regionAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, regionSpinner);
         ArrayAdapter<String> roleAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, roleSpinner);
         ArrayAdapter<String> rankAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, rankSpinner);
+        ArrayAdapter<String> styleAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, styleSpinner);
 
         regionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         roleAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         rankAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        styleAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         playerName = (EditText) view.findViewById(R.id.input_playerName);
         playerRole = (Spinner) view.findViewById(R.id.input_role_spinner);
@@ -109,6 +116,7 @@ public class GamesParamFragment extends Fragment {
         playerRegion.setAdapter(regionAdapter);
         playerRole.setAdapter(roleAdapter);
         playerRank.setAdapter(rankAdapter);
+        playerStyle.setAdapter(styleAdapter);
 
         final Button saveButton = (Button) view.findViewById(R.id.btn_saveGame);
         final Button updateButton = (Button) view.findViewById(R.id.btn_updateProfil);
