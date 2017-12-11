@@ -28,7 +28,7 @@
                 android:textSize="30dp"
                 android:textColor="@color/orange"
                 android:gravity="center"
-                android:text="Select option, then team!"
+                android:text="Team browser"
                 />
 
         </android.support.design.widget.TextInputLayout>
@@ -39,8 +39,9 @@
             android:orientation="horizontal"
             android:gravity="center"
             android:weightSum="1">
+
             <Button
-                android:id="@+id/btn_allTeam"
+                android:id="@+id/btn_managePlayer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -49,22 +50,10 @@
                 android:layout_marginRight="12dp"
                 android:background="@android:color/holo_orange_dark"
                 android:padding="12dp"
-                android:text="Show all" />
+                android:text="Player management" />
 
             <Button
-                android:id="@+id/btn_teamWherecanJoin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginRight="12dp"
-                android:background="@android:color/holo_orange_dark"
-                android:padding="12dp"
-                android:text="Join" />
-
-            <Button
-                android:id="@+id/btn_createTeam"
+                android:id="@+id/btn_manageTeam"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -72,7 +61,8 @@
                 android:layout_marginTop="12dp"
                 android:background="@android:color/holo_orange_dark"
                 android:padding="12dp"
-                android:text="Create" />
+                android:text="Team management" />
+
         </LinearLayout>
 
         <ExpandableListView android:id="@+id/teams_Expandable"

@@ -402,14 +402,9 @@
         <item>Yoruba</item>
         <item>Zulu</item>
     </string-array>
-    <string-array name="lol_ranks">
-        <item>Bronz</item>
-        <item>Silver</item>
-        <item>Gold</item>
-        <item>Platinum</item>
-        <item>Diamond</item>
-        <item>Master</item>
-        <item>Challenger</item>
+    <string-array name="game_list">
+        <item>Fortnite</item>
+        <item>League of Legends</item>
     </string-array>
     <string-array name="motivations">
         <item>Play for Fun</item>

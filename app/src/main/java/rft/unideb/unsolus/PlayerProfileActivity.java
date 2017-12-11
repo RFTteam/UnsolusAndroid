@@ -36,7 +36,7 @@ public class PlayerProfileActivity extends AppCompatActivity implements GamesPar
     HashMap<String, List<String>> listDataChild;
 
     boolean alreadyClicked = false;
-
+    //TODO:myAccs
     ApiService service;
     TokenManager tokenManager;
     Call<Player> call;
