@@ -18,8 +18,8 @@
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:layout_marginTop="24dp">
+            android:layout_marginBottom="6dp"
+            android:layout_marginTop="6dp">
 
             <TextView android:id="@+id/playersFragmentTitle"
                 android:layout_width="match_parent"
@@ -35,6 +35,173 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingBottom="6dp"
+            android:paddingLeft="40dp"
+            android:paddingRight="40dp"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/isFortnite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@android:color/white"
+                android:buttonTint="@android:color/white"
+                android:text="Fortnite" />
+
+            <CheckBox
+                android:id="@+id/isLol"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:buttonTint="@android:color/white"
+                android:layout_weight="1"
+                android:text="League of Legends" />
+        </LinearLayout>
+
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:weightSum="1">
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginRight="8dp"
+                android:background="@android:color/holo_orange_light">
+
+                <TextView
+                    android:id="@+id/fRank"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/rank_icon"
+                    android:drawablePadding="10dp"
+                    android:drawableStart="@drawable/rank_icon"
+                    android:hint="Rank"
+                    android:clickable="false"/>
+                <Spinner
+                    android:id="@+id/f_rank_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textFilter"
+                    android:hint="Rank"/>
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginRight="8dp"
+                android:background="@android:color/holo_orange_light">
+
+                <TextView
+                    android:id="@+id/fRole"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/videogame_name"
+                    android:drawablePadding="10dp"
+                    android:drawableStart="@drawable/videogame_name"
+                    android:clickable="false"
+                    android:hint="Role" />
+                <Spinner
+                    android:id="@+id/f_role_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textFilter"
+                    android:hint="Role"/>
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginRight="8dp"
+                android:background="@android:color/holo_orange_light">
+
+                <TextView
+                    android:id="@+id/fRegion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/country_icon"
+                    android:drawablePadding="10dp"
+                    android:drawableStart="@drawable/country_icon"
+                    android:clickable="false"
+                    android:hint="Server" />
+                <Spinner
+                    android:id="@+id/f_server_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textFilter"
+                    android:hint="Style"/>
+            </android.support.design.widget.TextInputLayout>
+
+    </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:weightSum="1">
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="6dp"
+                android:background="@android:color/holo_orange_light">
+
+                <TextView
+                    android:id="@+id/fStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/icon_style"
+                    android:drawablePadding="10dp"
+                    android:drawableStart="@drawable/icon_style"
+                    android:hint="Game Style"
+                    android:clickable="false"/>
+                <Spinner
+                    android:id="@+id/f_style_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textFilter"
+                    android:hint="Style"/>
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="@android:color/holo_orange_light">
+
+                <TextView
+                    android:id="@+id/fMotivation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/motivation_icon"
+                    android:drawablePadding="10dp"
+                    android:drawableStart="@drawable/motivation_icon"
+                    android:hint="Motivation"
+                    android:clickable="false" />
+
+                <Spinner
+                    android:id="@+id/f_motivation_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textFilter"
+                    android:entries="@array/motivations"
+                    android:hint="Motivation"/>
+            </android.support.design.widget.TextInputLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center"
             android:weightSum="1">
@@ -44,11 +211,11 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginBottom="10dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginRight="24dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginRight="12dp"
                 android:background="@android:color/holo_orange_dark"
-                android:padding="12dp"
-                android:text="Choose Filters" />
+                android:padding="5dp"
+                android:text="Activate Filters" />
 
             <Button
                 android:id="@+id/btn_rmvfilter"
@@ -56,13 +223,13 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginBottom="10dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="6dp"
                 android:background="@android:color/holo_orange_dark"
-                android:padding="12dp"
+                android:padding="5dp"
                 android:text="Remove Filters" />
         </LinearLayout>
 
-        <ExpandableListView android:id="@+id/playerNames_expandable"
+    <ExpandableListView android:id="@+id/playerNames_expandable"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 

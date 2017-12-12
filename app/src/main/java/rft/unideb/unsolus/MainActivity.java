@@ -283,7 +283,7 @@ public class MainActivity extends AppCompatActivity implements FragmentChangeLis
     }
 
     private void toggleFab() {
-        if (navItemIndex == 0)
+        if (navItemIndex == 0 || navItemIndex == 2 || navItemIndex == 3)
             fab.show();
         else
             fab.hide();
@@ -335,7 +335,7 @@ public class MainActivity extends AppCompatActivity implements FragmentChangeLis
         SharedPreferences.Editor editor = preferences.edit();
         editor.clear();
         editor.commit();
-        startActivity(new Intent(MainActivity.this, LoginActivity.class));
+       // startActivity(new Intent(MainActivity.this, LoginActivity.class));
         finish();
     }
 

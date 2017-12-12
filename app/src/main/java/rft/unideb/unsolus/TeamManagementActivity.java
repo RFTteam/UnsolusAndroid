@@ -148,21 +148,27 @@ public class TeamManagementActivity extends AppCompatActivity {
 
     @OnClick(R.id.btn_deleteTeam)
     void deleteTeam(){
-        String teamname = teamName.getText().toString();
-        call = service.deleteTeam(Integer.parseInt(teamname), tokenManager.getToken().getToken());
-        call.enqueue(new Callback<Team>() {
-            @Override
-            public void onResponse(Call<Team> call, Response<Team> response) {
-                Log.w(TAG, "onResponse: " + response );
-                if (response.isSuccessful())
-                    Toast.makeText(getApplicationContext(), "Team deleted successfully", Toast.LENGTH_LONG).show();
-            }
+        try {
+            String teamname = teamName.getText().toString();
 
-            @Override
-            public void onFailure(Call<Team> call, Throwable t) {
-                Log.w(TAG, "onFailure: " + t.getMessage() );
-            }
-        });
+            call = service.deleteTeam(Integer.parseInt(teamname), tokenManager.getToken().getToken());
+            call.enqueue(new Callback<Team>() {
+                @Override
+                public void onResponse(Call<Team> call, Response<Team> response) {
+                    Log.w(TAG, "onResponse: " + response );
+                    if (response.isSuccessful())
+                        Toast.makeText(getApplicationContext(), "Team deleted successfully", Toast.LENGTH_LONG).show();
+                }
+
+                @Override
+                public void onFailure(Call<Team> call, Throwable t) {
+                    Log.w(TAG, "onFailure: " + t.getMessage() );
+                }
+            });
+
+        }catch (Exception e){
+            Toast.makeText(getApplicationContext(), "Enter the TeamID for delete.", Toast.LENGTH_LONG).show();
+        }
 
     }
 }

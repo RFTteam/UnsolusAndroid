@@ -59,13 +59,16 @@ public class FiltersActivity extends AppCompatActivity{
         List<String> regionSpinner = new ArrayList<String>();
         List<String> roleSpinner = new ArrayList<String>();
         List<String> rankSpinner = new ArrayList<String>();
+        List<String> styleSpinner = new ArrayList<String>();
 
         if (isFortnite.isChecked()){
             regionSpinner.add("European");regionSpinner.add("American");
 
-            roleSpinner.add("There is no point here");
+            roleSpinner.add("Soldier");roleSpinner.add("Constructor");roleSpinner.add("Ninja");roleSpinner.add("Outlander");
 
-            rankSpinner.add("There is no point here");
+            rankSpinner.add("Not yet");
+
+            styleSpinner.add("Offensive");styleSpinner.add("Defensive");
         }else if(isLOL.isChecked()){
             regionSpinner.add("EUNE"); regionSpinner.add("RU"); regionSpinner.add("NA"); regionSpinner.add("EUW"); regionSpinner.add("LAS"); regionSpinner.add("LAN"); regionSpinner.add("BR");
             regionSpinner.add("TR");regionSpinner.add("OCE");regionSpinner.add("JP");regionSpinner.add("SEA");regionSpinner.add("SG/MY");regionSpinner.add("PH");regionSpinner.add("ID");
@@ -88,21 +91,25 @@ public class FiltersActivity extends AppCompatActivity{
         ArrayAdapter<String> regionAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, regionSpinner);
         ArrayAdapter<String> roleAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, roleSpinner);
         ArrayAdapter<String> rankAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, rankSpinner);
+        ArrayAdapter<String> styleAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, styleSpinner);
 
         regionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         roleAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         rankAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        styleAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         filterServer.setAdapter(regionAdapter);
         filterRole.setAdapter(roleAdapter);
         filterRank.setAdapter(rankAdapter);
+        filterStyle.setAdapter(styleAdapter);
     }
 
     @OnClick(R.id.btn_goFilt)
     void sendFiltParams(){
         if (filterRank.getSelectedItem().toString().length() > 3) {
             Bundle bundle = new Bundle();
-            bundle.putString("criteria", filterRank.getSelectedItem().toString());
+            bundle.putString("Rank", filterRank.getSelectedItem().toString());
+            bundle.putString("Server", filterServer.getSelectedItem().toString());
 
             PlayersFragment test = new PlayersFragment();
             test.setArguments(bundle);

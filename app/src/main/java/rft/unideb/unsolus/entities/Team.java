@@ -12,12 +12,12 @@ public class Team {
     String Teamgoal;
     @Json(name = "Server")
     String Server;
-    @Json(name = "Country")
-    String Country;
-    @Json(name = "Language")
-    String Language;
-    @Json(name = "Gamename")
-    String Gamename;
+    @Json(name = "country")
+    String country;
+    @Json(name = "language")
+    String language;
+    @Json(name = "game")
+    String game;
 
     public int getTeamID() {
         return TeamID;
@@ -52,26 +52,26 @@ public class Team {
     }
 
     public String getCountry() {
-        return Country;
+        return country;
     }
 
     public void setCountry(String country) {
-        Country = country;
+        country = country;
     }
 
     public String getLanguage() {
-        return Language;
+        return language;
     }
 
     public void setLanguage(String language) {
-        Language = language;
+        language = language;
     }
 
     public String getGamename() {
-        return Gamename;
+        return game;
     }
 
     public void setGamename(String gamename) {
-        Gamename = gamename;
+        game = gamename;
     }
 }
