@@ -101,23 +101,13 @@ public class PlayersFragment extends Fragment {
         setFilters.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                paramsForFilt = new String[]{filterRank.getSelectedItem().toString(),
-                                             filterRole.getSelectedItem().toString(),
-                                             filterRegion.getSelectedItem().toString(),
-                                             filterStyle.getSelectedItem().toString(),
-                                             filterMotivation.getSelectedItem().toString()};
-                getAllPlayer(paramsForFilt);
-                listAdapter = new ExpandableListAdapter(v.getContext(), listDataHeader, listDataChild);
-
-                expandableListView.setAdapter(listAdapter);
-
+                getAllPlayer();
             }
         });
 */
-        getAllPlayer(paramsForFilt);
-
+        getAllPlayer();
         listAdapter = new ExpandableListAdapter(this.getActivity(), listDataHeader, listDataChild);
-
+        listAdapter.notifyDataSetChanged();
         expandableListView.setAdapter(listAdapter);
 
         return view;
@@ -175,7 +165,7 @@ public class PlayersFragment extends Fragment {
         filterStyle.setAdapter(styleAdapter);
     }
 
-    public void getAllPlayer(final String[] params){
+    public void getAllPlayer(){
         listDataHeader = new ArrayList<String>();
         listDataChild = new HashMap<String, List<String>>();
 
@@ -194,6 +184,27 @@ public class PlayersFragment extends Fragment {
                         List<String> stuffsFromPlayers;
                         for (Player player : response.body()) {
                             stuffsFromPlayers = new ArrayList<String>();
+                          /*  if (isF.isChecked()){
+                                if (player.getGame().equals("Fortnite")){
+                                    listDataHeader.add(player.getGamerName().toString());
+                                    counter++;
+                                    stuffsFromPlayers.add("\t Game - " + player.getGame() +
+                                            "\n \t \t Rank - " + player.getRank() +
+                                            "\n \t \t Style - " + player.getRegion() +
+                                            "\n \t \t Role - " + player.getRole() +
+                                            "\n \t \t Server - " + player.getServer() +
+                                            "\n \t \t Motivation - " + player.getMotivation());
+                                }
+                            }else{
+                                listDataHeader.add(player.getGamerName().toString());
+                                counter++;
+                                stuffsFromPlayers.add("\t Game - " + player.getGame() +
+                                        "\n \t \t Rank - " + player.getRank() +
+                                        "\n \t \t Style - " + player.getRegion() +
+                                        "\n \t \t Role - " + player.getRole() +
+                                        "\n \t \t Server - " + player.getServer() +
+                                        "\n \t \t Motivation - " + player.getMotivation());
+                            }*/
                             listDataHeader.add(player.getGamerName().toString());
                             counter++;
                             stuffsFromPlayers.add("\t Game - " + player.getGame() +
@@ -202,27 +213,6 @@ public class PlayersFragment extends Fragment {
                                     "\n \t \t Role - " + player.getRole() +
                                     "\n \t \t Server - " + player.getServer() +
                                     "\n \t \t Motivation - " + player.getMotivation());
-                               /* if (params != null){
-                                    if (params[0].toString().equals(player.getRank().toString()) && params[1].toString().equals(player.getRole().toString()) && params[2].toString().equals(player.getRegion().toString()) && params[3].toString().equals(player.getServer().toString()) && params[4].toString().equals(player.getMotivation().toString()))
-                                    listDataHeader.add(player.getGamerName().toString());
-                                    counter++;
-                                    stuffsFromPlayers.add("\t Game - " + player.getGame() +
-                                            "\n \t \t Rank - " + player.getRank() +
-                                            "\n \t \t Server - " + player.getRegion() +
-                                            "\n \t \t Role - " + player.getRole() +
-                                            "\n \t \t Style - " + player.getServer() +
-                                            "\n \t \t Motivation - " + player.getMotivation());
-                                }else{
-                                    listDataHeader.add(player.getGamerName().toString());
-                                    counter++;
-                                    stuffsFromPlayers.add("\t Game - " + player.getGame() +
-                                            "\n \t \t Rank - " + player.getRank() +
-                                            "\n \t \t Server - " + player.getRegion() +
-                                            "\n \t \t Role - " + player.getRole() +
-                                            "\n \t \t Style - " + player.getServer() +
-                                            "\n \t \t Motivation - " + player.getMotivation());
-                                }
-*/
                                 listDataChild.put(listDataHeader.get(counter), stuffsFromPlayers);
 
                         }

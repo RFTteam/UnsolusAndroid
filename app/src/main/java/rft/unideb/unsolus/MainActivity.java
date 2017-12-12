@@ -335,7 +335,7 @@ public class MainActivity extends AppCompatActivity implements FragmentChangeLis
         SharedPreferences.Editor editor = preferences.edit();
         editor.clear();
         editor.commit();
-        startActivity(new Intent(MainActivity.this, LoginActivity.class));
+       // startActivity(new Intent(MainActivity.this, LoginActivity.class));
         finish();
     }
 
