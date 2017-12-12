@@ -85,7 +85,7 @@ public class GamesFragment extends Fragment {
                                 if (response.isSuccessful()){
                                     List<String> list = new ArrayList<String>();
                                     for (Player player : response.body()) {
-                                        list.add("Nickname - " + player.getGamerName() + "\n \t Rank - " + player.getRank());
+                                        list.add("Nickname - " + player.getGamerName());
                                     }
                                     listDataChild.put(listDataHeader.get(variant), list);
                                     variant++;

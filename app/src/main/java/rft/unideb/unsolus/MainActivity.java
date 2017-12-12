@@ -283,7 +283,7 @@ public class MainActivity extends AppCompatActivity implements FragmentChangeLis
     }
 
     private void toggleFab() {
-        if (navItemIndex == 0)
+        if (navItemIndex == 0 || navItemIndex == 2 || navItemIndex == 3)
             fab.show();
         else
             fab.hide();

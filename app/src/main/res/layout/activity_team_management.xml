@@ -196,6 +196,7 @@
                 android:layout_marginTop="12dp"
                 android:layout_marginRight="12dp"
                 android:layout_gravity="center"
+                android:padding="6dp"
                 android:background="@android:color/holo_orange_dark"
                 android:text="Create Team"/>
 
@@ -206,6 +207,7 @@
                 android:layout_marginBottom="12dp"
                 android:layout_marginTop="12dp"
                 android:layout_gravity="center"
+                android:padding="6dp"
                 android:background="@android:color/holo_orange_dark"
                 android:text="Delete team"/>
         </LinearLayout>

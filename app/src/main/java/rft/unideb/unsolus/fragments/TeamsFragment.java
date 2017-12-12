@@ -1,12 +1,18 @@
 package rft.unideb.unsolus.fragments;
 
 
+import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,6 +42,7 @@ import rft.unideb.unsolus.others.ExpandableListAdapter;
 import rft.unideb.unsolus.others.TokenManager;
 
 import static android.content.ContentValues.TAG;
+
 
 public class TeamsFragment extends Fragment {
 
@@ -83,9 +91,56 @@ public class TeamsFragment extends Fragment {
         getAllTeam();
         listAdapter = new ExpandableListAdapter(this.getActivity(), listDataHeader, listDataChild);
 
+        expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+                    String actID;// = listDataChild.get(listDataHeader.get(groupPosition)).get(childPosition).substring(10,11);
+                    String[] actIDs = listDataChild.get(listDataHeader.get(groupPosition)).get(childPosition).split(" ");
+                    actID = actIDs[3];
+                    getPlayerPerTeam(Integer.parseInt(actID));
+                return false;
+            }
+        });
+
+
         expandableListView.setAdapter(listAdapter);
 
         return view;
+    }
+
+    private void getPlayerPerTeam(int id) {
+        final List<String> members = new ArrayList<String>();
+        membersList = service.getPlayersPerTeam(id, tokenManager.getToken().getToken());
+        membersList.enqueue(new Callback<List<Player>>() {
+            @Override
+            public void onResponse(Call<List<Player>> call, Response<List<Player>> response) {
+                Log.w(TAG, "onResponse: " + response );
+                if (response.isSuccessful()){
+                    AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(getActivity());
+                    dlgAlert.setTitle("Team members");
+                    for (Player p : response.body()){
+                           members.add(p.getGamerName());
+                    }
+                    String names = new String();
+                    for (int i = 0; i< members.size(); i++)
+                        names = names + members.get(i) + "\n";
+
+                    dlgAlert.setMessage(names);
+
+                    dlgAlert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    });
+                    dlgAlert.setCancelable(true);
+                    dlgAlert.create().show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Player>> call, Throwable t) {
+                Log.w(TAG, "onFailure: " + t.getMessage() );
+            }
+        });
     }
 
     private void getAllTeam() {
@@ -110,10 +165,11 @@ public class TeamsFragment extends Fragment {
                         counter++;
                         stuffsFromTeams = new ArrayList<String>();
                         stuffsFromTeams.add("Team ID - " + m.getTeamID()
-                                            + "\n \t Game - " + m.getGamename()
-                                            + "\n \t Team goal - "+  m.getTeamgoal()
-                                            + "\n \t Server - " + m.getServer()
-                                            + "\n \t Language - " + m.getLanguage());
+                                            + " \n \t Game - " + m.getGamename()
+                                            + " \n \t Team goal - "+  m.getTeamgoal()
+                                            + " \n \t Server - " + m.getServer()
+                                            + " \n \t Language - " + m.getLanguage());
+                       // getPlayerPerTeam(m.getTeamID());
                         listDataChild.put(listDataHeader.get(counter), stuffsFromTeams);
                     }
                 }

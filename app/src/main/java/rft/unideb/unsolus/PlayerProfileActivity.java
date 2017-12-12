@@ -36,12 +36,10 @@ public class PlayerProfileActivity extends AppCompatActivity implements GamesPar
     HashMap<String, List<String>> listDataChild;
 
     boolean alreadyClicked = false;
-    //TODO:myAccs
     ApiService service;
     TokenManager tokenManager;
     Call<Player> call;
     Call<List<Player>> call2;
-    List<Player> myAccs;
 
     String actualGame;
     int actID;
@@ -117,8 +115,8 @@ public class PlayerProfileActivity extends AppCompatActivity implements GamesPar
         Map<String, String> optionalParams = new HashMap<>();
         optionalParams.put("Role", role);
         optionalParams.put("Rank", rank);
-        optionalParams.put("Style", region);
-        optionalParams.put("Server", server);
+        optionalParams.put("Style", server);
+        optionalParams.put("Server", region);
         optionalParams.put("Motivation", motivation);
 
             call = service.uploadPlayer(actualGame, name, optionalParams, tokenManager.getToken().getToken());
@@ -167,8 +165,8 @@ public class PlayerProfileActivity extends AppCompatActivity implements GamesPar
         Map<String, String> optionalParams = new HashMap<>();
         optionalParams.put("Role", role);
         optionalParams.put("Rank", rank);
-        optionalParams.put("Style", region);
-        optionalParams.put("Server", server);
+        optionalParams.put("Style", server);
+        optionalParams.put("Server", region);
         optionalParams.put("Motivation", motivation);
 
         boolean validate = true;

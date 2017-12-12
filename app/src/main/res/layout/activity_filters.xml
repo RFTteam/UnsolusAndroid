@@ -161,7 +161,7 @@
             android:layout_marginLeft="50dp"
             android:layout_marginRight="50dp"
             android:background="@android:color/holo_orange_light">
-            >
+
 
             <TextView
                 android:id="@+id/filter_motivation"

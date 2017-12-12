@@ -94,7 +94,7 @@
                 android:background="@android:color/holo_orange_light">
 
                 <TextView
-                    android:id="@+id/input_region"
+                    android:id="@+id/input_server"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/country_icon"
@@ -118,7 +118,7 @@
                 android:background="@android:color/holo_orange_light">
 
                 <TextView
-                    android:id="@+id/input_server"
+                    android:id="@+id/input_style"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/icon_style"
